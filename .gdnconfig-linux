@@ -7,7 +7,7 @@
       },
       "arguments": {
         "AnalyzeDirectory": "bicep",
-        "AnalyzeTemplate": "main.bicep",
+        "AnalyzeTemplate": "",
         "ParametersFilePath": "main.parameters.json",
         "Verbose": "true",
         "IncludeNonSecurityRules": "true",
