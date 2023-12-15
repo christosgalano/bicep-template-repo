@@ -22,9 +22,9 @@ jobs:
         uses: microsoft/security-devops-action@v1
         id: msdo
         with:
-          tools: templateanalyzer,terrascan
+          config: .gdnconfig
+          tools: templateanalyzer
           categories: 'IaC'
-          # config: .gdnconfig
 
       - name: Upload results to Security tab
         uses: github/codeql-action/upload-sarif@v2
