@@ -1,0 +1,42 @@
+name: Update Resource Abbreviations
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Run at 00:00 on the first day of every month
+  workflow_dispatch:
+
+jobs:
+  update-abbreviations:
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
+
+    - name: Run fetch script
+      run: python ./.github/scripts/fetch_resource_abbreviations.py -f ./bicep/abbreviations.json
+
+    - name: Check for changes
+      id: git-diff
+      run: |
+        git diff --exit-code --quiet || echo "changed=true" >> $GITHUB_OUTPUT
+
+    - name: Commit and push if there are changes
+      if: steps.git-diff.outputs.changed == 'true'
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add bicep/abbreviations.json
+        git commit -m 'Update resource abbreviations'
+        git push
