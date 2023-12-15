@@ -28,7 +28,7 @@ jobs:
 
       # Uncomment if you have a GitHub Advanced Security license
       # - name: Upload results to Security tab
-      #   uses: github/codeql-action/upload-sarif@v2
+      #   uses: github/codeql-action/upload-sarif@v3
       #   if: always()
       #   with:
       #     sarif_file: ${{ steps.msdo.outputs.sarifFile }}
