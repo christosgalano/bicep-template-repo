@@ -6,7 +6,7 @@
         "version": "Latest"
       },
       "arguments": {
-        "AnalyzeTemplate": "bicep/main.json",
+        "AnalyzeTemplate": "bicep/main.bicep",
         "ParametersFilePath": "bicep/main.parameters.json",
         "Verbose": "true",
         "IncludeNonSecurityRules": "true"
