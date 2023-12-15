@@ -6,7 +6,8 @@
         "version": "Latest"
       },
       "arguments": {
-        "AnalyzeDirectory": "bicep"
+        "AnalyzeDirectory": "bicep",
+        "IncludeNonSecurityRules": "true"
       }
     }
   ]
