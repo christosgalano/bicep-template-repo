@@ -22,7 +22,6 @@ jobs:
         uses: microsoft/security-devops-action@v1
         id: msdo
         with:
-          config: .gdnconfig
           tools: templateanalyzer
           categories: 'IaC'
 
