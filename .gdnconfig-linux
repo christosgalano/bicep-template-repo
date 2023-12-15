@@ -6,11 +6,7 @@
         "version": "Latest"
       },
       "arguments": {
-        "AnalyzeDirectory": "bicep",
-        "AnalyzeTemplate": "",
-        "ParametersFilePath": "",
-        "Verbose": "",
-        "IncludeNonSecurityRules": ""
+        "AnalyzeDirectory": "bicep"
       }
     }
   ]
