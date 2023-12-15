@@ -4,13 +4,13 @@ targetScope = 'subscription'
 
 /// Parameters ///
 
-@description('Azure region used for the deployment of all resources')
+@description('Azure region used for the deployment of all resources.')
 param location string
 
-@description('Name of the workload that will be deployed')
+@description('Name of the workload that will be deployed.')
 param workload string
 
-@description('Name of the workload\'s environment')
+@description('Name of the workload\'s environment.')
 param environment string
 
 /// Variables ///
@@ -51,5 +51,3 @@ module webapp 'modules/webapp.bicep' = {
     webapp_name: '${abbreviations.WebApp}-${suffix}'
   }
 }
-
-/// Outputs ///

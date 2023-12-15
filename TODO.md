@@ -5,6 +5,7 @@
 - [ ] Add azure_destroy pipeline using the stack
 - [ ] Implement a branch deploy model
 - [ ] Add documentation
+- [ ] Include linting in pipeline
 - [ ] Add contribution guidelines
 - [ ] Add license
 - [ ] Add PR & issue templates
