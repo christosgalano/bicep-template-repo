@@ -43,16 +43,10 @@ jobs:
           compare_to_earlier_commit: true
           check_run_annotations: all tests, skipped tests
 
-      - name: Upload results as artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: results
-          path: psrule-results-${{ github.run_number }}.xml
-
       # Uncomment if you have a GitHub Advanced Security license
       - name: Convert to Sarif
         uses: microsoft/sarif-actions@v0.1
+        if: always()
         with:
           command: "convert psrule-results-${{ github.run_number }}.xml --tool Pylint --output psrule-results-${{ github.run_number }}.sarif"
 
@@ -61,3 +55,10 @@ jobs:
       #   if: always()
       #   with:
       #     sarif_file: psrule-results-${{ github.run_number }}.sarif
+
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results
+          path: psrule-results-${{ github.run_number }}.*
