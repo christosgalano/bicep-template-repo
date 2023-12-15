@@ -6,7 +6,7 @@
         "version": "Latest"
       },
       "arguments": {
-        "AnalyzeDirectory": "$(WorkingDirectory)",
+        "AnalyzeDirectory": "bicep",
         "AnalyzeTemplate": "main.bicep",
         "ParametersFilePath": "main.parameters.json",
         "Verbose": "true",
