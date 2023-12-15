@@ -4,39 +4,60 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate:
+  psrule-scan:
+    name: psrule-scan
     runs-on: ubuntu-latest
     permissions:
+      issues: read
+      checks: write
       contents: read
-      security-events: write
+      pull-requests: write
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Bicep for linting
-        uses: azure/CLI@v1
+      - name: Bicep build
+        run: az bicep build --file bicep/main.bicep --outfile bicep/main.json
+
+      - name: Run PSRule
+        uses: microsoft/ps-rule@v2.9.0
         with:
-          inlineScript: az config set bicep.use_binary_from_path=false && az bicep build -f bicep/main.bicep --stdout
-          
-      - name: Run Microsoft Security DevOps Analysis
-        uses: microsoft/security-devops-action@v1
-        id: msdo
+          inputType: inputPath
+          inputPath: bicep/main*.json
+          modules: "PSRule.Rules.Azure"
+          outputFormat: NUnit3
+          outputPath: psrule-results-${{ github.run_number }}.xml
+          summary: true
+
+      - name: Publish results
+        uses: EnricoMi/publish-unit-test-result-action@v2.9.0
+        if: always()
         with:
-          config: .gdnconfig-linux
-          tools: templateanalyzer
-          categories: 'IaC'
-          policy: microsoft
+          check_name: PSRule Scan Results
+          nunit_files: psrule-results-${{ github.run_number }}.xml
+          comment_mode: always
+          fail_on: test failures
+          action_fail: false
+          ignore_runs: false
+          job_summary: false
+          compare_to_earlier_commit: true
+          check_run_annotations: all tests, skipped tests
 
       - name: Upload results as artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: results
-          path: ${{ steps.msdo.outputs.sarifFile }}
+          path: psrule-results-${{ github.run_number }}.xml
 
       # Uncomment if you have a GitHub Advanced Security license
+      - name: Convert to Sarif
+        uses: microsoft/sarif-actions@v0.1
+        with:
+          command: "convert psrule-results-${{ github.run_number }}.xml --tool Pylint --output psrule-results-${{ github.run_number }}.sarif"
+
       # - name: Upload results to Security tab
       #   uses: github/codeql-action/upload-sarif@v3
       #   if: always()
       #   with:
-      #     sarif_file: ${{ steps.msdo.outputs.sarifFile }}
+      #     sarif_file: psrule-results-${{ github.run_number }}.sarif
