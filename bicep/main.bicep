@@ -29,11 +29,25 @@ var suffix = '${workload}-${environment}-${location}'
 #disable-next-line no-unused-vars
 var unique_suffix = '${suffix}-${resource_token}'
 
+// Resource group name
+var resource_group_name = '${abbreviations.ResourceGroup}-${suffix}'
+
 /// Modules & Resources ///
 
 resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
-  name: '${abbreviations.ResourceGroup}-${suffix}'
+  name: resource_group_name
   location: location
+}
+
+module webapp 'modules/webapp.bicep' = {
+  scope: resourceGroup(resource_group_name)
+
+  name: 'webapp-deployment'
+  params: {
+    location: location
+    plan_name: '${abbreviations.AppServicePlan}-${suffix}'
+    webapp_name: '${abbreviations.WebApp}-${suffix}'
+  }
 }
 
 /// Outputs ///
