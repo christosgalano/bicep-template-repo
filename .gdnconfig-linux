@@ -8,8 +8,8 @@
       "arguments": {
         "AnalyzeTemplate": "bicep/main.bicep",
         "ParametersFilePath": "bicep/main.parameters.json",
-        "Verbose": "true",
-        "IncludeNonSecurityRules": "false"
+        "Verbose": "",
+        "IncludeNonSecurityRules": ""
       }
     }
   ]
