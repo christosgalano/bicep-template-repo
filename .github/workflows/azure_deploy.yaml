@@ -25,6 +25,7 @@ jobs:
           config: .gdnconfig-linux
           tools: templateanalyzer
           categories: 'IaC'
+          policy: microsoft
 
       # Uncomment if you have a GitHub Advanced Security license
       # - name: Upload results to Security tab
