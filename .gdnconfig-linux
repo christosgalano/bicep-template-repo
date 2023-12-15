@@ -6,12 +6,10 @@
         "version": "Latest"
       },
       "arguments": {
-        "AnalyzeDirectory": "bicep",
         "AnalyzeTemplate": "main.json",
         "ParametersFilePath": "main.parameters.json",
         "Verbose": "true",
-        "IncludeNonSecurityRules": "true",
-        "Help": ""
+        "IncludeNonSecurityRules": "true"
       }
     }
   ]
