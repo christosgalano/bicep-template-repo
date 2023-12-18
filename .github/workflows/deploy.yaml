@@ -66,15 +66,12 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
       - name: Create/Update deployment stack
-        uses: azure/CLI@v1
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az stack sub create \
-            --name ${{ inputs.deployment_stack }} \
-            --location ${{ inputs.location }} \
-            --deny-settings-mode ${{ inputs.deny_settings_mode }} \
-            --delete-all ${{ inputs.delete_all }} \
-            --template-file bicep/main.bicep \
-            --parameters bicep/main.bicepparam \
-            --yes
+        run: |
+          az stack sub create \
+          --name ${{ inputs.deployment_stack }} \
+          --location ${{ inputs.location }} \
+          --deny-settings-mode ${{ inputs.deny_settings_mode }} \
+          --delete-all ${{ inputs.delete_all }} \
+          --template-file bicep/main.bicep \
+          --parameters bicep/main.bicepparam \
+          --yes

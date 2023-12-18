@@ -38,34 +38,27 @@ jobs:
         with:
           inputPath: bicep/main*.json
           modules: "PSRule.Rules.Azure"
-          outputFormat: Sarif
-          outputPath: psrule-results-${{ github.run_number }}.sarif
+          outputFormat: NUnit3 
+          outputPath: psrule-results-${{ github.run_number }}.xml
           summary: true
 
-      # - name: Publish results
-      #   uses: EnricoMi/publish-unit-test-result-action@v2.11.0
-      #   if: always()
-      #   with:
-      #     check_name: PSRule Scan Results
-      #     nunit_files: psrule-results-${{ github.run_number }}.xml
-      #     comment_mode: always
-      #     fail_on: test failures
-      #     action_fail: false
-      #     ignore_runs: false
-      #     job_summary: false
-      #     compare_to_earlier_commit: true
-      #     check_run_annotations: all tests, skipped tests
-
-      # Uncomment if you have a GitHub Advanced Security license
-      # - name: Upload results to Security tab
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   if: always()
-      #   with:
-      #     sarif_file: psrule-results-${{ github.run_number }}.sarif
+      - name: Publish results
+        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
+        if: always()
+        with:
+          check_name: PSRule Scan Results
+          nunit_files: psrule-results-${{ github.run_number }}.xml
+          comment_mode: always
+          fail_on: test failures
+          action_fail: false
+          ignore_runs: false
+          job_summary: false
+          compare_to_earlier_commit: true
+          check_run_annotations: all tests, skipped tests
 
       - name: Upload results as artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: results
-          path: psrule-results-${{ github.run_number }}.*
+          name: psrule-results-run-${{ github.run_number }}
+          path: psrule-results-${{ github.run_number }}.xml
