@@ -35,7 +35,7 @@ jobs:
           outputFormat: NUnit3
           outputPath: psrule-results-${{ github.run_number }}.xml
           summary: true
-          path: ${{ github.workspace }}
+          path: .
 
       - name: Publish results
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
