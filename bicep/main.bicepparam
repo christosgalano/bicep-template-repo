@@ -1,7 +1,7 @@
 using 'main.bicep'
 
-param location = ''
+param location = 'westeurope'
 
-param workload = ''
+param workload = 'atr'
 
-param environment = ''
+param environment = 'dev'
