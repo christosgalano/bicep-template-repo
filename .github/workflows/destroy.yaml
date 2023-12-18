@@ -9,7 +9,7 @@ on:
         type: string
 
       delete_all:
-        description: "Flag to indicate delete rather than detach for the resources and resource groups."
+        description: "Delete rather than detach the stack's resources and resource groups."
         required: true
         type: boolean
         default: true
