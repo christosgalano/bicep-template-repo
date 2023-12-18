@@ -10,6 +10,13 @@ param webapp_name string
 resource plan 'Microsoft.Web/serverfarms@2023-01-01' = {
   name: plan_name
   location: location
+  sku: {
+    name: 'B1'
+    tier: 'Basic'
+    size: 'B1'
+    family: 'B'
+    capacity: 1
+  }
   properties: {
     reserved: true
   }
