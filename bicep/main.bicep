@@ -44,18 +44,3 @@ resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   name: resource_group_name
   location: location
 }
-
-module webapp 'modules/webapp.bicep' = {
-  scope: resourceGroup(resource_group_name)
-
-  name: 'webapp-deployment'
-  params: {
-    location: location
-    plan_name: '${abbreviations.AppServicePlan}-${suffix}'
-    webapp_name: '${abbreviations.WebApp}-${suffix}'
-  }
-
-  dependsOn: [
-    rg
-  ]
-}
