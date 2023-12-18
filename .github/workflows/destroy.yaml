@@ -49,9 +49,9 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
-      - name: Create/Update deployment stack
+      - name: Delete deployment stack
         run: |
-          az stack sub create \
+          az stack sub delete \
           --name ${{ inputs.deployment_stack }} \
           --delete-all ${{ inputs.delete_all }} \
           --yes
