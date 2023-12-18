@@ -2,10 +2,54 @@ name: Destroy Azure Infrastructure
 
 on:
   workflow_dispatch:
+    inputs:
+      deployment_stack:
+        description: "Name of the deployment stack to delete."
+        required: true
+        type: string
+
+      delete_all:
+        description: "Flag to indicate delete rather than detach for the resources and resource groups."
+        required: true
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
+  approve-destruction:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Manual approval
+        uses: trstringer/manual-approval@v1.9.0
+        with:
+          approvers: christosgalano
+          minimum-approvals: 1
+          issue-title: "Delete deployment stack ${{ inputs.deployment_stack }}"
+          issue-body: "Please approve or deny the destruction of the infrastructure regarding deployment stack ${{ inputs.deployment_stack }}."
+          secret: ${{ secrets.GITHUB_TOKEN }}
+  
   destroy-infra:
     runs-on: ubuntu-latest
+    needs: approve-destruction
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Create/Update deployment stack
+        uses: azure/CLI@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az stack sub create \
+            --name ${{ inputs.deployment_stack }} \
+            --delete-all ${{ inputs.delete_all }} \
+            --yes
