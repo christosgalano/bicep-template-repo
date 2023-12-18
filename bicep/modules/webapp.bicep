@@ -7,7 +7,7 @@ param plan_name string
 @description('Web App name')
 param webapp_name string
 
-resource plan 'Microsoft.Web/serverfarms@2021-03-01' = {
+resource plan 'Microsoft.Web/serverfarms@2023-01-01' = {
   name: plan_name
   location: location
   properties: {
@@ -15,7 +15,7 @@ resource plan 'Microsoft.Web/serverfarms@2021-03-01' = {
   }
 }
 
-resource webapp 'Microsoft.Web/sites@2021-02-01' = {
+resource webapp 'Microsoft.Web/sites@2023-01-01' = {
   name: webapp_name
   location: location
   properties: {
