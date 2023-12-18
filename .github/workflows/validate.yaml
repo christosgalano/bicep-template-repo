@@ -29,13 +29,13 @@ jobs:
       - name: Run PSRule
         uses: microsoft/ps-rule@v2.9.0
         with:
-          inputType: inputPath
+          # inputType: inputPath
           inputPath: bicep/main*.json
           modules: "PSRule.Rules.Azure"
           outputFormat: NUnit3
           outputPath: psrule-results-${{ github.run_number }}.xml
           summary: true
-          path: .
+          # path: .
 
       - name: Publish results
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
