@@ -20,7 +20,13 @@ resource webapp 'Microsoft.Web/sites@2023-01-01' = {
   location: location
   properties: {
     serverFarmId: plan.id
-    httpsOnly: false
+    httpsOnly: true
+    siteConfig: {
+      alwaysOn: true
+      cors: {
+        allowedOrigins: [ '*' ]
+      }
+    }
   }
 }
 

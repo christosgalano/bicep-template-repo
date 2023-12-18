@@ -4,14 +4,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  psrule-scan:
-    name: psrule-scan
+  validate-bicep:
+    uses: ./.github/workflows/validate.yaml
+    secrets: inherit
+  
+  deploy-infra:
+    needs: validate-bicep
     runs-on: ubuntu-latest
-    permissions:
-      issues: read
-      checks: write
-      contents: read
-      pull-requests: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

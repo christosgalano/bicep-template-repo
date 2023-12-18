@@ -28,6 +28,7 @@ rule:
   # Ignore the following rules for all resources
   exclude:
     # Template
+    - Azure.Template.UseVariables
     - Azure.Template.UseDescriptions
 
     # Resource
@@ -35,6 +36,10 @@ rule:
 
     # App Service
     - Azure.AppService.HTTP2
-    # - Azure.AppService.WebSecureFtp
+    - Azure.AppService.WebSecureFtp
     - Azure.AppService.ARRAffinity
     - Azure.AppService.ManagedIdentity
+    - Azure.AppService.MinTLS
+    - Azure.AppService.PlanInstanceCount
+    - Azure.AppService.WebProbe
+    - Azure.AppService.WebProbePath
