@@ -60,7 +60,7 @@ jobs:
         uses: microsoft/sarif-actions@v0.1
         if: always()
         with:
-          command: "convert psrule-results-${{ github.run_number }}.xml --tool Pylint --output psrule-results-${{ github.run_number }}.sarif"
+          command: "convert psrule-results-${{ github.run_number }}.xml --tool CppCheck --output psrule-results-${{ github.run_number }}.sarif"
 
       # Uncomment if you have a GitHub Advanced Security license
       # - name: Upload results to Security tab
