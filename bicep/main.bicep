@@ -54,4 +54,8 @@ module webapp 'modules/webapp.bicep' = {
     plan_name: '${abbreviations.AppServicePlan}-${suffix}'
     webapp_name: '${abbreviations.WebApp}-${suffix}'
   }
+
+  dependsOn: [
+    rg
+  ]
 }
