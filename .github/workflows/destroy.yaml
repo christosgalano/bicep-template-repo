@@ -11,8 +11,11 @@ on:
       delete_all:
         description: "Delete rather than detach the stack's resources and resource groups."
         required: true
-        type: boolean
-        default: true
+        type: choice
+        options:
+          - "true"
+          - "false"
+        default: "true"
 
 concurrency:
   group: ${{ github.workflow }}
