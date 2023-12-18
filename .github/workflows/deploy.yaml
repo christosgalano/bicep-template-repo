@@ -49,7 +49,11 @@ concurrency:
 jobs:
   validate-bicep:
     uses: ./.github/workflows/validate.yaml
-    secrets: inherit
+    permissions:
+      issues: read
+      checks: write
+      contents: read
+      pull-requests: write
   
   deploy-infra:
     needs: validate-bicep
