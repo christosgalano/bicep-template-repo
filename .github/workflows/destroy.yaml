@@ -32,8 +32,8 @@ jobs:
         with:
           approvers: christosgalano
           minimum-approvals: 1
-          issue-title: "Delete deployment stack ${{ inputs.deployment_stack }}"
-          issue-body: "Please approve or deny the destruction of the infrastructure regarding deployment stack ${{ inputs.deployment_stack }}."
+          issue-title: "Delete deployment stack **${{ inputs.deployment_stack }}**."
+          issue-body: "Please approve or deny the destruction of the infrastructure regarding deployment stack **${{ inputs.deployment_stack }}**."
           secret: ${{ secrets.GITHUB_TOKEN }}
   
   destroy-infra:
