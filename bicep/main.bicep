@@ -7,9 +7,13 @@ targetScope = 'subscription'
 @description('Azure region used for the deployment of all resources.')
 param location string
 
+@maxLength(10)
+@minLength(2)
 @description('Name of the workload that will be deployed.')
 param workload string
 
+@maxLength(10)
+@minLength(2)
 @description('Name of the workload\'s environment.')
 param environment string
 
