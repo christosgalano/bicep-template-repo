@@ -50,11 +50,8 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
       - name: Create/Update deployment stack
-        uses: azure/CLI@v1
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az stack sub create \
-            --name ${{ inputs.deployment_stack }} \
-            --delete-all ${{ inputs.delete_all }} \
-            --yes
+        run: |
+          az stack sub create \
+          --name ${{ inputs.deployment_stack }} \
+          --delete-all ${{ inputs.delete_all }} \
+          --yes
