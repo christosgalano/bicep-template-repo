@@ -1,0 +1,72 @@
+name: Validate Bicep
+
+on:
+  workflow_dispatch:
+
+jobs:
+  psrule-scan:
+    name: psrule-scan
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      checks: write
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Bicep lint
+        run: az bicep lint --file main.bicep
+        working-directory: bicep
+      
+      - name: Bicep build
+        run: |
+          az bicep build --file main.bicep --outfile main.json
+          az bicep build-params --file main.bicepparam --outfile main.parameters.json
+        working-directory: bicep
+
+      - name: Run PSRule
+        uses: microsoft/ps-rule@v2.9.0
+        with:
+          inputType: inputPath
+          inputPath: bicep/main*.json
+          modules: "PSRule.Rules.Azure"
+          outputFormat: NUnit3
+          outputPath: psrule-results-${{ github.run_number }}.xml
+          summary: true
+          path: ${{ github.workspace }}
+
+      - name: Publish results
+        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
+        if: always()
+        with:
+          check_name: PSRule Scan Results
+          nunit_files: psrule-results-${{ github.run_number }}.xml
+          comment_mode: always
+          fail_on: test failures
+          action_fail: false
+          ignore_runs: false
+          job_summary: false
+          compare_to_earlier_commit: true
+          check_run_annotations: all tests, skipped tests
+
+      - name: Convert to Sarif
+        uses: microsoft/sarif-actions@v0.1
+        if: always()
+        with:
+          command: "convert psrule-results-${{ github.run_number }}.xml --tool Pylint --output psrule-results-${{ github.run_number }}.sarif"
+
+      # Uncomment if you have a GitHub Advanced Security license
+      # - name: Upload results to Security tab
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   if: always()
+      #   with:
+      #     sarif_file: psrule-results-${{ github.run_number }}.sarif
+
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results
+          path: psrule-results-${{ github.run_number }}.*
