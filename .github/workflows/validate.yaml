@@ -30,7 +30,7 @@ jobs:
         uses: microsoft/ps-rule@v2.9.0
         with:
           # inputType: inputPath
-          inputPath: bicep/main*.json
+          inputPath: bicep/main.bicep*
           modules: "PSRule.Rules.Azure"
           outputFormat: NUnit3
           outputPath: psrule-results-${{ github.run_number }}.xml
