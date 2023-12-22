@@ -21,6 +21,7 @@ jobs:
       run: chmod u+x ./.github/scripts/generate_bicep_docs.ps1
 
     - name: Run PowerShell script
+      shell: pwsh
       run: ./.github/scripts/generate_bicep_docs.ps1
 
     - name: Check for changes
