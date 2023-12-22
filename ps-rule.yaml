@@ -1,5 +1,5 @@
 requires:
-  PSRule.Rules.Azure: ">=1.26.0"
+  PSRule.Rules.Azure: ">=1.30.0"
 
 include:
   module:
@@ -12,15 +12,25 @@ output:
 
 input:
   pathIgnore:
-    - bicep/modules/
+    # Exclude bicepconfig.json
+    - "bicepconfig.json"
+
+    # Exclude module files
+    - "bicep/modules/**/*.bicep"
+
+    # Include test files for modules
+    - "!bicep/modules/**/*.tests.bicep"
 
 configuration:
   # Enable expansion of Azure Template files.
   AZURE_PARAMETER_FILE_EXPANSION: true
 
+  # Check Azure Bicep CLI.
+  AZURE_BICEP_CHECK_TOOL: true
+
   # Enable expansion of Azure Bicep files (done through bicep build)
-  AZURE_BICEP_FILE_EXPANSION: false
-  AZURE_BICEP_PARAMS_FILE_EXPANSION: false
+  AZURE_BICEP_FILE_EXPANSION: true
+  AZURE_BICEP_PARAMS_FILE_EXPANSION: true
 rule:
   # Enable custom rules that don't exist in the baseline.
   includeLocal: true

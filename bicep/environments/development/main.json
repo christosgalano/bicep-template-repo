@@ -1,0 +1,326 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.24.24.22086",
+      "templateHash": "14121312949335459207"
+    },
+    "description": "Description of the main template."
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "metadata": {
+        "strongType": "location",
+        "description": "Azure region used for the deployment of all resources."
+      }
+    },
+    "workload": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 10,
+      "metadata": {
+        "description": "Name of the workload that will be deployed."
+      }
+    },
+    "environment": {
+      "type": "string",
+      "allowedValues": [
+        "dev",
+        "test",
+        "prod"
+      ],
+      "minLength": 2,
+      "maxLength": 10,
+      "metadata": {
+        "description": "Name of the workload's environment."
+      }
+    }
+  },
+  "variables": {
+    "$fxv#0": {
+      "AISearch": "srch",
+      "AzureAIServicesMultiServiceAccount": "aisa",
+      "AzureAIVideoIndexer": "avi",
+      "AzureMachineLearningWorkspace": "mlw",
+      "AzureOpenAIService": "oai",
+      "BotService": "bot",
+      "ComputerVision": "cv",
+      "ContentModerator": "cm",
+      "ContentSafety": "cs",
+      "CustomVisionPrediction": "cstv",
+      "CustomVisionTraining": "cstvt",
+      "DocumentIntelligence": "di",
+      "FaceAPI": "face",
+      "HealthInsights": "hi",
+      "ImmersiveReader": "ir",
+      "LanguageService": "lang",
+      "SpeechService": "spch",
+      "Translator": "trsl",
+      "AzureAnalysisServicesServer": "as",
+      "AzureDatabricksWorkspace": "dbw",
+      "AzureDataExplorerCluster": "dec",
+      "AzureDataExplorerClusterDatabase": "dedb",
+      "AzureDataFactory": "adf",
+      "AzureDigitalTwinInstance": "dt",
+      "AzureStreamAnalytics": "asa",
+      "AzureSynapseAnalyticsPrivateLinkHub": "synplh",
+      "AzureSynapseAnalyticsSQLDedicatedPool": "syndp",
+      "AzureSynapseAnalyticsSparkPool": "synsp",
+      "AzureSynapseAnalyticsWorkspaces": "synw",
+      "DataLakeStoreAccount": "dls",
+      "DataLakeAnalyticsAccount": "dla",
+      "EventHubsNamespace": "evhns",
+      "EventHub": "evh",
+      "EventGridDomain": "evgd",
+      "EventGridSubscriptions": "evgs",
+      "EventGridTopic": "evgt",
+      "EventGridSystemTopic": "egst",
+      "HDInsightHadoopCluster": "hadoop",
+      "HDInsightHbaseCluster": "hbase",
+      "HDInsightKafkaCluster": "kafka",
+      "HDInsightSparkCluster": "spark",
+      "HDInsightStormCluster": "storm",
+      "HDInsightMlServicesCluster": "mls",
+      "IoTHub": "iot",
+      "ProvisioningServices": "provs",
+      "ProvisioningServicesCertificate": "pcert",
+      "PowerBIEmbedded": "pbi",
+      "TimeSeriesInsightsEnvironment": "tsi",
+      "AppServiceEnvironment": "ase",
+      "AppServicePlan": "asp",
+      "AzureLoadTestingInstance": "lt",
+      "AvailabilitySet": "avail",
+      "AzureArcEnabledServer": "arcs",
+      "AzureArcEnabledKubernetesCluster": "arck",
+      "BatchAccounts": "ba",
+      "CloudService": "cld",
+      "CommunicationServices": "acs",
+      "DiskEncryptionSet": "des",
+      "FunctionApp": "func",
+      "Gallery": "gal",
+      "HostingEnvironment": "host",
+      "ImageTemplate": "it",
+      "ManagedDiskOs": "osdisk",
+      "ManagedDiskData": "disk",
+      "NotificationHubs": "ntf",
+      "NotificationHubsNamespace": "ntfns",
+      "ProximityPlacementGroup": "ppg",
+      "RestorePointCollection": "rpc",
+      "Snapshot": "snap",
+      "StaticWebApp": "stapp",
+      "VirtualMachine": "vm",
+      "VirtualMachineScaleSet": "vmss",
+      "VirtualMachineMaintenanceConfiguration": "mc",
+      "VMStorageAccount": "stvm",
+      "WebApp": "app",
+      "AksCluster": "aks",
+      "ContainerApps": "ca",
+      "ContainerAppsEnvironment": "cae",
+      "ContainerRegistry": "cr",
+      "ContainerInstance": "ci",
+      "ServiceFabricCluster": "sf",
+      "ServiceFabricManagedCluster": "sfmc",
+      "AzureCosmosDBDatabase": "cosmos",
+      "AzureCosmosDBForApacheCassandraAccount": "coscas",
+      "AzureCosmosDBForMongoDBAccount": "cosmon",
+      "AzureCosmosDBForNoSQLAccount": "cosno",
+      "AzureCosmosDBForTableAccount": "costab",
+      "AzureCosmosDBForApacheGremlinAccount": "cosgrm",
+      "AzureCosmosDBPostgreSQLCluster": "cospos",
+      "AzureCacheForRedisInstance": "redis",
+      "AzureSQLDatabaseServer": "sql",
+      "AzureSQLDatabase": "sqldb",
+      "AzureSQLElasticJobAgent": "sqlja",
+      "AzureSQLElasticPool": "sqlep",
+      "MariaDBServer": "maria",
+      "MariaDBDatabase": "mariadb",
+      "MySQLDatabase": "mysql",
+      "PostgreSQLDatabase": "psql",
+      "SQLServerStretchDatabase": "sqlstrdb",
+      "SQLManagedInstance": "sqlmi",
+      "AppConfigurationStore": "appcs",
+      "MapsAccount": "map",
+      "SignalR": "sigr",
+      "WebPubSub": "wps",
+      "AzureManagedGrafana": "amg",
+      "APIManagementServiceInstance": "apim",
+      "IntegrationAccount": "ia",
+      "LogicApps": "logic",
+      "ServiceBusNamespace": "sbns",
+      "ServiceBusQueue": "sbq",
+      "ServiceBusTopic": "sbt",
+      "ServiceBusTopicSubscription": "sbts",
+      "AutomationAccount": "aa",
+      "ApplicationInsights": "appi",
+      "AzureMonitorActionGroup": "ag",
+      "AzureMonitorDataCollectionRules": "dcr",
+      "Blueprint": "bp",
+      "BlueprintAssignment": "bpa",
+      "DataCollectionEndpoint": "dce",
+      "LogAnalyticsWorkspace": "log",
+      "LogAnalyticsQueryPacks": "pack",
+      "ManagementGroup": "mg",
+      "MicrosoftPurviewInstance": "pview",
+      "ResourceGroup": "rg",
+      "TemplateSpecsName": "ts",
+      "AzureMigrateProject": "migr",
+      "DatabaseMigrationServiceInstance": "dms",
+      "RecoveryServicesVault": "rsv",
+      "ApplicationGateway": "agw",
+      "ApplicationSecurityGroupAsg": "asg",
+      "CDNProfile": "cdnp",
+      "CDNEndpoint": "cdne",
+      "Connections": "con",
+      "DnsForwardingRuleset": "dnsfrs",
+      "DnsPrivateResolver": "dnspr",
+      "DnsPrivateResolverInboundEndpoint": "in",
+      "DnsPrivateResolverOutboundEndpoint": "out",
+      "Firewall": "afw",
+      "FirewallPolicy": "afwp",
+      "ExpressRouteCircuit": "erc",
+      "ExpressRouteGateway": "ergw",
+      "FrontDoorStandardPremiumProfile": "afd",
+      "FrontDoorStandardPremiumEndpoint": "fde",
+      "FrontDoorFirewallPolicy": "fdfp",
+      "FrontDoorClassic": "afd",
+      "IPGroup": "ipg",
+      "LoadBalancerInternal": "lbi",
+      "LoadBalancerExternal": "lbe",
+      "LoadBalancerRule": "rule",
+      "LocalNetworkGateway": "lgw",
+      "NatGateway": "ng",
+      "NetworkInterfaceNic": "nic",
+      "NetworkSecurityGroupNsg": "nsg",
+      "NetworkSecurityGroupNsgSecurityRules": "nsgsr",
+      "NetworkWatcher": "nw",
+      "PrivateLink": "pl",
+      "PrivateEndpoint": "pep",
+      "PublicIPAddress": "pip",
+      "PublicIPAddressPrefix": "ippre",
+      "RouteFilter": "rf",
+      "RouteServer": "rtserv",
+      "RouteTable": "rt",
+      "ServiceEndpointPolicy": "se",
+      "TrafficManagerProfile": "traf",
+      "UserDefinedRouteUdr": "udr",
+      "VirtualNetwork": "vnet",
+      "VirtualNetworkGateway": "vgw",
+      "VirtualNetworkManager": "vnm",
+      "VirtualNetworkPeering": "peer",
+      "VirtualNetworkSubnet": "snet",
+      "VirtualWan": "vwan",
+      "VirtualWanHub": "vhub",
+      "AzureBastion": "bas",
+      "KeyVault": "kv",
+      "KeyVaultManagedHsm": "kvmhsm",
+      "ManagedIdentity": "id",
+      "SshKey": "sshkey",
+      "VpnGateway": "vpng",
+      "VpnConnection": "vcn",
+      "VpnSite": "vst",
+      "WebApplicationFirewallWafPolicy": "waf",
+      "WebApplicationFirewallWafPolicyRuleGroup": "wafrg",
+      "AzureStorSimple": "ssimp",
+      "BackupVaultName": "bvault",
+      "BackupVaultPolicy": "bkpol",
+      "FileShare": "share",
+      "StorageAccount": "st",
+      "StorageSyncServiceName": "sss",
+      "VirtualDesktopHostPool": "vdpool",
+      "VirtualDesktopApplicationGroup": "vdag",
+      "VirtualDesktopWorkspace": "vdws",
+      "VirtualDesktopScalingPlan": "vdscaling"
+    },
+    "abbreviations": "[variables('$fxv#0')]",
+    "resource_token": "[toLower(uniqueString(subscription().id, parameters('workload'), parameters('location')))]",
+    "suffix": "[format('{0}-{1}-{2}', parameters('workload'), parameters('environment'), parameters('location'))]",
+    "unique_suffix": "[format('{0}-{1}', variables('suffix'), variables('resource_token'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2023-07-01",
+      "name": "[format('{0}-{1}', variables('abbreviations').ResourceGroup, variables('suffix'))]",
+      "location": "[parameters('location')]",
+      "metadata": {
+        "description": "Resource group that will contain all resources."
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "sample-deployment",
+      "resourceGroup": "[format('{0}-{1}', variables('abbreviations').ResourceGroup, variables('suffix'))]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "required_param": {
+            "value": "required value"
+          },
+          "optional_param_1": {
+            "value": "optional value 1"
+          },
+          "location": {
+            "value": "[parameters('location')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.24.24.22086",
+              "templateHash": "9551250681304520879"
+            },
+            "name": "Sample",
+            "description": "Sample module to demonstrate the inteded structure and usage."
+          },
+          "parameters": {
+            "required_param": {
+              "type": "string",
+              "metadata": {
+                "description": "Required parameter."
+              }
+            },
+            "location": {
+              "type": "string",
+              "defaultValue": "[resourceGroup().location]",
+              "metadata": {
+                "strongType": "location",
+                "description": "The Azure region to deploy to."
+              }
+            },
+            "optional_param_1": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Optional parameter 1."
+              }
+            },
+            "optional_param_2": {
+              "type": "string",
+              "defaultValue": "",
+              "metadata": {
+                "description": "Optional parameter 2."
+              }
+            }
+          },
+          "resources": []
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/resourceGroups', format('{0}-{1}', variables('abbreviations').ResourceGroup, variables('suffix')))]"
+      ],
+      "metadata": {
+        "description": "Deploy the sample module."
+      }
+    }
+  ]
+}

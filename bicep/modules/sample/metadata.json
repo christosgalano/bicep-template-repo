@@ -1,0 +1,5 @@
+{
+  "itemDisplayName": "Display name of the template",
+  "description": "Template description.",
+  "summary": "Summary describing the Bicep template."
+}

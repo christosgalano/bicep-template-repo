@@ -2,6 +2,6 @@ using 'main.bicep'
 
 param location = 'westeurope'
 
-param workload = 'atr'
+param workload = 'demo'
 
-param environment = 'dev'
+param environment = 'prod'
