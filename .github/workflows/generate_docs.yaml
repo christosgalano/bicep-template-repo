@@ -24,7 +24,7 @@ jobs:
       shell: pwsh
       run: ./.github/scripts/generate_bicep_docs.ps1
 
-    - name: Check for changes
+    - name: Check for changes in bicep directory
       id: git-diff
       run: |
         git diff --exit-code --quiet bicep/ || echo "changed=true" >> $GITHUB_OUTPUT
