@@ -10,5 +10,5 @@ foreach ($mainBicepFile in $mainBicepFiles) {
   & bicep build $mainBicepFile.FullName --outfile $templateFile
 
   # Generate a README.md file
-  Invoke-PSDocument -Module PSDocs.Azure -OutputPath $directory -InputObject $templateFile -InstanceName "README"
+  Invoke-PSDocument -Module PSDocs.Azure -OutputPath $directory -InputObject $templateFile -InstanceName "README" -Culture "en-US"
 }
