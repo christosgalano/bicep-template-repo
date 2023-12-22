@@ -34,6 +34,6 @@ jobs:
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add bicep/abbreviations.json
+        git add bicep
         git commit -m 'Update bicep documentation'
         git push
