@@ -20,7 +20,7 @@
   "no-reversed-links": true,
   "no-multiple-blanks": true,
   "line-length": {
-    "line_length": 100,
+    "line_length": 350,
     "code_blocks": false,
     "tables": false
   },
@@ -57,8 +57,6 @@
   "no-empty-links": true,
   "proper-names": {
     "names": [
-      "Azure",
-      "Bicep",
       "PowerShell"
     ],
     "code_blocks": false
