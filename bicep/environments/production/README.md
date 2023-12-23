@@ -1,6 +1,6 @@
-# Display name of the template
+# Production Deployment
 
-Summary describing the Bicep template.
+Summary describing the main Bicep template for the production environment.
 
 Description of the main template.
 
@@ -10,7 +10,7 @@ Parameter name | Required | Description
 -------------- | -------- | -----------
 location       | Yes      | Azure region used for the deployment of all resources.
 workload       | Yes      | Name of the workload that will be deployed.
-environment    | Yes      | Name of the workload's environment.
+environment    | No       | Name of the workload's environment.
 
 ### location
 
@@ -26,11 +26,13 @@ Name of the workload that will be deployed.
 
 ### environment
 
-![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Name of the workload's environment.
 
-- Allowed values: `dev`, `test`, `prod`
+- Default value: `prod`
+
+- Allowed values: `prod`, `production`
 
 ## Snippets
 
@@ -51,7 +53,7 @@ Name of the workload's environment.
             "value": ""
         },
         "environment": {
-            "value": ""
+            "value": "prod"
         }
     }
 }
