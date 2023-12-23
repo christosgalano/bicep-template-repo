@@ -47,6 +47,7 @@ jobs:
         git add bicep/abbreviations.json
         git commit -m 'Update resource abbreviations'
 
+    # Make sure to enable *Allow GitHub Actions to create and approve pull requests* under Settings > Actions
     - name: Create pull request
       if: steps.git-diff.outputs.changed == 'true'
       env:
