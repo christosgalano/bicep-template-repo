@@ -21,6 +21,7 @@
     "AzureDatabricksWorkspace": "dbw",
     "AzureDataExplorerCluster": "dec",
     "AzureDataExplorerClusterDatabase": "dedb",
+    "AzureDataFactory": "adf",
     "AzureDigitalTwinInstance": "dt",
     "AzureStreamAnalytics": "asa",
     "AzureSynapseAnalyticsPrivateLinkHub": "synplh",
