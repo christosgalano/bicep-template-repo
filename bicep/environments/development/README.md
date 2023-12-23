@@ -1,6 +1,6 @@
 # Development Deployment
 
-Summary describing the main Bicep template for the development environment.
+Summary describing the Bicep template for the development environment.
 
 Description of the main template.
 
