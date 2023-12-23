@@ -43,12 +43,12 @@ jobs:
       env:
         BRANCH_NAME: update-resource-abbreviations
       run: |
-        git show-ref --verify --quiet refs/heads/${{ env.BRANCH_NAME }} || git checkout -b ${{ env.BRANCH_NAME }}
-        git switch ${{ env.BRANCH_NAME }}
+        git switch ${{ env.BRANCH_NAME }} || git switch -c ${{ env.BRANCH_NAME }}
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add bicep/abbreviations.json
         git commit -m 'Update resource abbreviations'
+        git push origin ${{ env.BRANCH_NAME }}
 
     # Make sure to enable *Allow GitHub Actions to create and approve pull requests* under Settings > Actions
     - name: Create pull request
