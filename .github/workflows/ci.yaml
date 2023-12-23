@@ -21,6 +21,11 @@ concurrency:
 
 jobs:
   validate-bicep:
+    # Avoid running twice when a pull request is synchronized (push on Head branch & PR sync)
+    if: |
+      github.event_name == 'workflow_call' ||
+      (github.event_name == 'push' && github.event.pull_request == null) ||
+      (github.event_name == 'pull_request' && github.event.action != 'synchronize')
     runs-on: ubuntu-latest
     permissions:
       issues: read
@@ -57,8 +62,8 @@ jobs:
           summary: true
 
       - name: Publish results
-        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with:
           check_name: PSRule Scan Results - ${{ matrix.environment }}
           nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
@@ -71,22 +76,24 @@ jobs:
           check_run_annotations: all tests, skipped tests
 
       - name: Upload results as artifact
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: psrule-results-${{ matrix.environment }}-run-${{ github.run_number }}
           path: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
 
   # This job will only run if the workflow is triggered by a pull request
   generate-bicep-docs:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     needs: validate-bicep
     permissions: 
       contents: write
-    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
       
       - name: Install necessary modules
         shell: pwsh
