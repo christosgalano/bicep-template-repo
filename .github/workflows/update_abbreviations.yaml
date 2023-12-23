@@ -54,10 +54,9 @@ jobs:
       if: steps.git-diff.outputs.changed == 'true'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH_NAME: update-resource-abbreviations
       run: |
         gh pr create \
         --base ${{ github.ref_name }} \
-        --head $BRANCH_NAME \
+        --head update-resource-abbreviations \
         --title "Update resource abbreviations" \
-        --body "Automated changes by GitHub Actions regarding the *bicep/abbreviations.json* file."
+        --body "Automated changes by GitHub Actions regarding the bicep/abbreviations.json file."
