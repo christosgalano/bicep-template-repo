@@ -28,7 +28,7 @@ on:
         type: environment
       
       deny_settings_mode:
-        description: "Deny settings mode for the deployment stack. Default is none."
+        description: "Deny settings mode for the deployment stack."
         required: true
         type: choice
         options:
