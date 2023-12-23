@@ -7,7 +7,8 @@ on:
       - main
     paths-ignore:
       - "bicep/**"
-      - ".github/workflows/**"
+      - "!bicep/abbreviations.json"
+      - ".github/workflows/validate.yaml"
 
 concurrency:
   group: noop
