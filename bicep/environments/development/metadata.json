@@ -1,5 +1,5 @@
 {
   "itemDisplayName": "Development Deployment",
   "description": "Deployment into the development environment.",
-  "summary": "Summary describing the main Bicep template for the development environment."
+  "summary": "Summary describing the Bicep template for the development environment."
 }

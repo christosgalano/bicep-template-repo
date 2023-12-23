@@ -52,7 +52,7 @@ concurrency:
 
 jobs:
   validate-bicep:
-    uses: ./.github/workflows/validate.yaml
+    uses: ./.github/workflows/ci.yaml
     permissions:
       issues: read
       checks: write

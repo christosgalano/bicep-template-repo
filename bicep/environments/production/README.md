@@ -1,6 +1,6 @@
 # Production Deployment
 
-Summary describing the main Bicep template for the production environment.
+Summary describing the Bicep template for the production environment.
 
 Description of the main template.
 

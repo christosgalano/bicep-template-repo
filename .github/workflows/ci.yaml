@@ -1,18 +1,11 @@
-name: Validate Bicep
+name: Continuous Integration
 
 on:
-  push:
-    paths:
-      - "bicep/**"
-      - "!bicep/abbreviations.json" # Ignore changes to abbreviations.json
-      - ".github/workflows/validate.yaml"
   pull_request:
-    branches:
-      - main
     paths:
       - "bicep/**"
       - "!bicep/abbreviations.json"
-      - ".github/workflows/validate.yaml"
+      - ".github/**"
   workflow_call:
 
 concurrency:
@@ -57,8 +50,8 @@ jobs:
           summary: true
 
       - name: Publish results
-        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with:
           check_name: PSRule Scan Results - ${{ matrix.environment }}
           nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
@@ -71,8 +64,47 @@ jobs:
           check_run_annotations: all tests, skipped tests
 
       - name: Upload results as artifact
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: psrule-results-${{ matrix.environment }}-run-${{ github.run_number }}
           path: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
+
+  # This job will only run if the workflow is triggered by a pull request
+  generate-bicep-docs:
+    runs-on: ubuntu-latest
+    needs: validate-bicep
+    permissions: 
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      
+      - name: Install necessary modules
+        shell: pwsh
+        run: |
+          Install-Module -Name PSDocs -Force
+          Install-Module -Name PSDocs.Azure -Force
+
+      - name: Add execute permissions to Powershell script
+        run: chmod u+x ./.github/scripts/generate_bicep_docs.ps1
+
+      - name: Run PowerShell script
+        shell: pwsh
+        run: ./.github/scripts/generate_bicep_docs.ps1
+
+      - name: Check for changes in bicep directory
+        id: git-diff
+        run: |
+          git diff --exit-code --quiet bicep/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if there are changes
+        if: steps.git-diff.outputs.changed == 'true'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add bicep
+          git commit -m 'Update bicep documentation'
+          git push
