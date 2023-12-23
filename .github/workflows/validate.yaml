@@ -28,7 +28,7 @@ jobs:
       matrix:
         environment: [development, production]
     env:
-      BICEP_ENV_DIR: bicep/enviroments/${{ matrix.environment }}
+      BICEP_ENV_DIR: bicep/environments/${{ matrix.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
