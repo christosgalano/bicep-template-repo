@@ -30,8 +30,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install requests beautifulsoup4
 
-    - name: Run fetch script
-      run: python ./.github/scripts/fetch_resource_abbreviations.py -f ./bicep/abbreviations.json
+    - name: Run update script
+      run: python ./.github/scripts/update_resource_abbreviations.py -f ./bicep/abbreviations.json
 
     - name: Check for changes
       id: git-diff
