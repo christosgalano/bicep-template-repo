@@ -72,6 +72,7 @@ jobs:
 
   # This job will only run if the workflow is triggered by a pull request
   generate-bicep-docs:
+    if: github.event_name != 'workflow_call'
     runs-on: ubuntu-latest
     needs: validate-bicep
     permissions: 
