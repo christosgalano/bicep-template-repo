@@ -1,45 +1,56 @@
 name: Validate Bicep
 
 on:
-  workflow_call: 
+  push:
+    paths:
+      - "bicep/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "bicep/**"
+  workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Bicep lint
-        run: az bicep lint --file main.bicep
-        working-directory: bicep
-
   psrule-scan:
     runs-on: ubuntu-latest
-    needs: lint
     permissions:
       issues: read
       checks: write
       contents: read
       pull-requests: write
+    strategy:
+      matrix:
+        environment: [development, staging, production]
+    env:
+      BICEP_ENV_DIR: bicep/enviroments/${{ matrix.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Bicep lint
+        run: |
+          az bicep lint --file main.bicep
+        working-directory: ${{ env.BICEP_ENV_DIR }}
       
       - name: Bicep build
         run: |
           az bicep build --file main.bicep --outfile main.json
           az bicep build-params --file main.bicepparam --outfile main.parameters.json
-        working-directory: bicep
+        working-directory: ${{ env.BICEP_ENV_DIR }}
 
       - name: Run PSRule
         uses: microsoft/ps-rule@v2.9.0
         with:
-          inputPath: bicep/main*.json
+          inputPath: ${{ env.BICEP_ENV_DIR }}/main*.json
           modules: "PSRule.Rules.Azure"
           outputFormat: NUnit3 
-          outputPath: psrule-results-${{ github.run_number }}.xml
+          outputPath: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
           summary: true
 
       - name: Publish results
@@ -47,7 +58,7 @@ jobs:
         if: always()
         with:
           check_name: PSRule Scan Results
-          nunit_files: psrule-results-${{ github.run_number }}.xml
+          nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
           comment_mode: always
           fail_on: test failures
           action_fail: false
@@ -60,5 +71,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: psrule-results-run-${{ github.run_number }}
-          path: psrule-results-${{ github.run_number }}.xml
+          name: psrule-results-${{ matrix.environment }}-run-${{ github.run_number }}
+          path: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml

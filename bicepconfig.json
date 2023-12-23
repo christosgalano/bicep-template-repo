@@ -1,7 +1,4 @@
 {
-  "experimentalFeaturesEnabled": {
-    "resourceTypedParamsAndOutputs": true
-  },
   "analyzers": {
     "core": {
       "enabled": true,

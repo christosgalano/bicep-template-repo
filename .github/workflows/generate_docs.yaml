@@ -4,9 +4,15 @@ on:
   workflow_call:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   generate-docs:
     runs-on: ubuntu-latest
+    permissions: 
+      contents: write
     steps:
     - name: Checkout code
       uses: actions/checkout@v4

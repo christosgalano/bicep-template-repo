@@ -1,3 +1,5 @@
+# Script to generate README.md files for each main Bicep template using PSDocs
+
 # Get all main.bicep files in the bicep/** directory and its subdirectories
 $mainBicepFiles = Get-ChildItem -Path "bicep/**" -Filter "main.bicep" -Recurse
 

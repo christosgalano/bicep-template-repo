@@ -5,6 +5,10 @@ on:
     - cron: '0 0 1 * *'  # Run at 00:00 on the first day of every month
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   update-abbreviations:
     runs-on: ubuntu-latest

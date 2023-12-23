@@ -8,6 +8,11 @@ on:
         required: true
         type: string
 
+      environment:
+        description: "Environment to destroy."
+        type: environment
+        required: true
+
       delete_all:
         description: "Delete rather than detach the stack's resources and resource groups."
         required: true
@@ -18,7 +23,7 @@ on:
         default: "true"
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ inputs.environment }}
   cancel-in-progress: true
 
 jobs:
@@ -32,8 +37,8 @@ jobs:
         with:
           approvers: christosgalano
           minimum-approvals: 1
-          issue-title: "Delete deployment stack ${{ inputs.deployment_stack }}"
-          issue-body: "Please approve or deny the destruction of the infrastructure regarding deployment stack **${{ inputs.deployment_stack }}**."
+          issue-title: "Delete deployment stack ${{ inputs.deployment_stack }} in ${{ inputs.environment }}"
+          issue-body: "Please approve or deny the destruction of the infrastructure regarding deployment stack **${{ inputs.deployment_stack }}** in **${{ inputs.environment }}** environment."
           secret: ${{ secrets.GITHUB_TOKEN }}
   
   destroy-infra:
@@ -41,6 +46,7 @@ jobs:
     needs: approve-destruction
     permissions:
       id-token: write
+    environment: ${{ inputs.environment }}
     steps:
       - name: Azure login
         uses: azure/login@v1

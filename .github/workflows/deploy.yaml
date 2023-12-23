@@ -23,6 +23,10 @@ on:
         - "switzerlandnorth"
         default: "westeurope"
       
+      environment:
+        description: "Environment to deploy the stack to."
+        type: environment
+      
       deny_settings_mode:
         description: "Deny settings mode for the deployment stack. Default is none."
         required: true
@@ -43,7 +47,7 @@ on:
         default: "false"
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ inputs.environment }}
   cancel-in-progress: true
 
 jobs:
@@ -61,6 +65,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -79,6 +84,7 @@ jobs:
           --location ${{ inputs.location }} \
           --deny-settings-mode ${{ inputs.deny_settings_mode }} \
           --delete-all ${{ inputs.delete_all }} \
-          --template-file bicep/main.bicep \
-          --parameters bicep/main.bicepparam \
+          --template-file main.bicep \
+          --parameters main.bicepparam \
           --yes
+        working-directory: bicep/environments/${{ inputs.environment }}

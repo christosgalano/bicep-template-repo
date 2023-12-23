@@ -15,15 +15,14 @@ param location string
 @sys.description('Name of the workload that will be deployed.')
 param workload string
 
-@maxLength(10)
+@maxLength(12)
 @minLength(2)
 @allowed([
   'dev'
-  'test'
-  'prod'
+  'development'
 ])
 @sys.description('Name of the workload\'s environment.')
-param environment string
+param environment string = 'dev'
 
 /// Variables ///
 @sys.description('Abbreviations for resource names.')
