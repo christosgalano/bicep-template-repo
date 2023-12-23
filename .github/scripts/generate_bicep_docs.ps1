@@ -13,4 +13,7 @@ foreach ($mainBicepFile in $mainBicepFiles) {
 
   # Generate a README.md file
   Invoke-PSDocument -Module PSDocs.Azure -OutputPath $directory -InputObject $templateFile -InstanceName "README" -Culture "en-US"
+
+  # Delete the main.json file
+  Remove-Item $templateFile
 }
