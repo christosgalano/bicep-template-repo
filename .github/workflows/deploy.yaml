@@ -56,7 +56,7 @@ jobs:
     permissions:
       issues: read
       checks: write
-      contents: read
+      contents: write
       pull-requests: write
   
   deploy-infra:
