@@ -41,13 +41,11 @@ jobs:
     - name: Create new branch and commit changes
       if: steps.git-diff.outputs.changed == 'true'
       run: |
+        git checkout -b update-resource-abbreviations
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add bicep/abbreviations.json
         git commit -m 'Update resource abbreviations'
-        
-        git checkout -b update-resource-abbreviations
-        git push origin update-resource-abbreviations
 
     - name: Create pull request
       if: steps.git-diff.outputs.changed == 'true'
