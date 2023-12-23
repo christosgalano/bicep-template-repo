@@ -43,8 +43,7 @@ jobs:
       env:
         BRANCH_NAME: update-resource-abbreviations
       run: |
-        git show-ref --verify --quiet refs/heads/$BRANCH_NAME || git switch -c $BRANCH_NAME
-        git switch $BRANCH_NAME
+        git switch $BRANCH_NAME || git switch -c $BRANCH_NAME
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add bicep/abbreviations.json
@@ -58,7 +57,7 @@ jobs:
         BRANCH_NAME: update-resource-abbreviations
       run: |
         gh pr create \
-        --base ${{ github.ref }} \
+        --base ${{ github.ref_name }} \
         --head $BRANCH_NAME \
         --title "Update resource abbreviations" \
         --body "Automated changes by GitHub Actions regarding the *bicep/abbreviations.json* file."
