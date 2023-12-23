@@ -1,0 +1,24 @@
+# This workflow is used to bypass the "required status check" branch protection rule for the job "validate-bicep".
+name: validate-bicep
+run-name: noop # it is noop because it performs no operations
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - "bicep/**"
+      - ".github/workflows/**"
+
+concurrency:
+  group: noop
+  cancel-in-progress: true
+
+jobs:
+  # So, if we make some changes to the repository that do not modify neither the "bicep"
+  # nor the ".github/workflows" directory, then we are good to merge our pull request.
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fake operation
+        run: echo "noop workflow; no deployment required"

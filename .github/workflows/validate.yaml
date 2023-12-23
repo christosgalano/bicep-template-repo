@@ -4,20 +4,23 @@ on:
   push:
     paths:
       - "bicep/**"
+      - "!bicep/abbreviations.json" # Ignore changes to abbreviations.json
+      - ".github/workflows/validate.yaml"
   pull_request:
     branches:
       - main
     paths:
       - "bicep/**"
+      - "!bicep/abbreviations.json"
+      - ".github/workflows/validate.yaml"
   workflow_call:
-  workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  psrule-scan:
+  validate-bicep:
     runs-on: ubuntu-latest
     permissions:
       issues: read
@@ -26,7 +29,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        environment: [development, production]
+        environment: [development, production] # Modify this to match your environments
     env:
       BICEP_ENV_DIR: bicep/environments/${{ matrix.environment }}
     steps:
