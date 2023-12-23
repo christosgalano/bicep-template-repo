@@ -13,6 +13,7 @@
     "DocumentIntelligence": "di",
     "FaceAPI": "face",
     "HealthInsights": "hi",
+    "ImmersiveReader": "ir",
     "LanguageService": "lang",
     "SpeechService": "spch",
     "Translator": "trsl",
