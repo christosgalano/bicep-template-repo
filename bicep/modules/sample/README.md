@@ -1,4 +1,4 @@
-# Sample
+# Sample Module
 
 Sample module to demonstrate the inteded structure and usage.
 
