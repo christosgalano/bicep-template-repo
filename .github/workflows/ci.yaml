@@ -13,16 +13,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-bicep:
+  # Retrieve and export all of the environments in the "bicep/environments" directory as a JSON array.
+  select-environments:
     runs-on: ubuntu-latest
-    permissions:
-      issues: read
-      checks: write
-      contents: read
-      pull-requests: write
+    outputs:
+      environments: ${{ steps.select-all-environments.outputs.environments }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select all environments
+        id: select-all-environments
+        run: |
+          environments=( $(ls ./) )
+          environments_json=$(jq -c -n '$ARGS.positional' --args "${environments[@]}")
+          echo "Selected environments: $environments_json"
+          echo "environments=$environments_json" >> $GITHUB_OUTPUT
+        working-directory: bicep/environments
+  
+  # Validate the Bicep environment modules in matrix jobs. Each environment has its own matrix job.
+  # If one or more matrix jobs fail, then the rest carry on normally and are not canceled.
+  validate-environments:
+    name: Validate environment - ${{ matrix.environment }}
+    needs: select-environments
+    runs-on: ubuntu-latest
     strategy:
+      max-parallel: 5
+      fail-fast: false
       matrix:
-        environment: [development, production] # Modify this to match your environments
+        environment: ${{ fromJson(needs.select-environments.outputs.environments) }}
     env:
       BICEP_ENV_DIR: bicep/environments/${{ matrix.environment }}
     steps:
@@ -70,11 +89,10 @@ jobs:
           name: psrule-results-${{ matrix.environment }}-run-${{ github.run_number }}
           path: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
 
-  # This job will only run if the workflow is triggered by a pull request
   generate-bicep-docs:
+    needs: validate-environments
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    needs: validate-bicep
     permissions: 
       contents: write
     steps:
