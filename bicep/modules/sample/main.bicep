@@ -7,9 +7,9 @@ metadata description = '''
 This is a sample module to demonstrate the inteded structure and usage.
 
 Regarding the metadata part the fields are:
-- **name:** The display name of the module.
-- **summary:** A short summary of the module.
-- **description:** A longer description of the module.
+- **name:** Used for markdown page title.
+- **summary:** Used as a short description for the markdown page.
+- **description:** Used as a detailed description for the markdown page.
 '''
 
 /// Parameters ///
