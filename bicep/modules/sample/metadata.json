@@ -1,5 +1,5 @@
 {
-  "itemDisplayName": "Display name of the template",
+  "itemDisplayName": "Sample Module",
   "description": "Template description.",
   "summary": "Summary describing the Bicep template."
 }
