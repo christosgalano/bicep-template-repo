@@ -1,8 +1,16 @@
 # Sample
 
-Summary describing the Bicep template.
-
 Sample module to demonstrate the inteded structure and usage.
+
+This is a sample module to demonstrate the inteded structure and usage.
+
+Regarding the metadata part, the following fields are required:
+- **name:** The display name of the module.
+- **summary:** A short summary of the module.
+
+The following fields are optional:
+- **description:** A longer description of the module.
+
 
 ## Parameters
 

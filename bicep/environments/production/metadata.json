@@ -1,5 +1,0 @@
-{
-  "itemDisplayName": "Production Deployment",
-  "description": "Deployment into the production environment.",
-  "summary": "Summary describing the Bicep template for the production environment."
-}
