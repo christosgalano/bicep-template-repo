@@ -6,11 +6,9 @@ metadata summary = 'Sample module to demonstrate the inteded structure and usage
 metadata description = '''
 This is a sample module to demonstrate the inteded structure and usage.
 
-Regarding the metadata part, the following fields are required:
+Regarding the metadata part the fields are:
 - **name:** The display name of the module.
 - **summary:** A short summary of the module.
-
-The following fields are optional:
 - **description:** A longer description of the module.
 '''
 
