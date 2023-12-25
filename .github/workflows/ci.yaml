@@ -37,6 +37,11 @@ jobs:
     name: validate-${{ matrix.environment }}
     needs: select-environments
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
     strategy:
       max-parallel: 5
       fail-fast: false
