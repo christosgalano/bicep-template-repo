@@ -6,7 +6,7 @@ metadata description = 'Sample module to demonstrate the inteded structure and u
 
 /// Parameters ///
 @sys.description('Required parameter.')
-#disable-next-line no-unused-params
+// #disable-next-line no-unused-params
 param required_param string
 
 @metadata({
