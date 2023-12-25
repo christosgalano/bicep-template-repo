@@ -13,6 +13,72 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Find out if any of the modules or environments have changed.
+  changed-resources:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      modules-changed: ${{ steps.modules-changed.outputs.modules_changed }}
+      environments-changed: ${{ steps.environments-changed.outputs.environments_changed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for changes in modules directory
+        id: modules-changed
+        run: |
+          git diff --exit-code --quiet bicep/modules/ || echo "modules_changed=true" >> $GITHUB_OUTPUT
+
+      - name: Check for changes in environments directory
+        id: environments-changed
+        run: |
+          git diff --exit-code --quiet bicep/environments/ || echo "environments_changed=true" >> $GITHUB_OUTPUT
+
+  # Generate the Bicep documentation if any of the modules or environments have changed.
+  generate-bicep-docs:
+    needs: changed-resources
+    if: |
+      github.event_name == 'pull_request' &&
+      (
+        needs.changed-resources.outputs.modules-changed == 'true' ||
+        needs.changed-resources.outputs.environments-changed == 'true'
+      )
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      
+      - name: Install necessary modules
+        shell: pwsh
+        run: |
+          Install-Module -Name PSDocs -Force
+          Install-Module -Name PSDocs.Azure -Force
+
+      - name: Add execute permissions to Powershell script
+        run: chmod u+x ./.github/scripts/generate_bicep_docs.ps1
+
+      - name: Run PowerShell script
+        shell: pwsh
+        run: ./.github/scripts/generate_bicep_docs.ps1
+
+      - name: Check for changes in bicep directory
+        id: git-diff
+        run: |
+          git diff --exit-code --quiet bicep/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if there are changes
+        if: steps.git-diff.outputs.changed == 'true'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add bicep
+          git commit -m "Update bicep documentation"
+          git push
+
   # Retrieve and export all of the environments in the "bicep/environments" directory as a JSON array.
   select-environments:
     runs-on: ubuntu-latest
@@ -93,45 +159,3 @@ jobs:
         with:
           name: psrule-results-${{ matrix.environment }}-run-${{ github.run_number }}
           path: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
-
-  generate-bicep-docs:
-    needs: validate-environments
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    permissions: 
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-      
-      - name: Install necessary modules
-        shell: pwsh
-        run: |
-          Install-Module -Name PSDocs -Force
-          Install-Module -Name PSDocs.Azure -Force
-
-      - name: Add execute permissions to Powershell script
-        run: chmod u+x ./.github/scripts/generate_bicep_docs.ps1
-
-      - name: Run PowerShell script
-        shell: pwsh
-        run: ./.github/scripts/generate_bicep_docs.ps1
-
-      - name: Check for changes in bicep directory
-        id: git-diff
-        run: |
-          git diff --exit-code --quiet bicep/ || echo "changed=true" >> $GITHUB_OUTPUT
-
-      - name: Commit and push if there are changes
-        if: steps.git-diff.outputs.changed == 'true'
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add bicep
-          git commit -m "Update bicep documentation
-          
-          
-          skip-checks:true"
-          git push
