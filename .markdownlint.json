@@ -18,7 +18,7 @@
   "no-trailing-spaces": true,
   "no-hard-tabs": true,
   "no-reversed-links": true,
-  "no-multiple-blanks": true,
+  "no-multiple-blanks": false,
   "line-length": {
     "line_length": 350,
     "code_blocks": false,
@@ -29,7 +29,7 @@
   "no-multiple-space-atx": true,
   "no-missing-space-closed-atx": true,
   "no-multiple-space-closed-atx": true,
-  "blanks-around-headers": true,
+  "blanks-around-headers": false,
   "header-start-left": true,
   "no-duplicate-header": true,
   "single-h1": true,
@@ -42,8 +42,8 @@
     "style": "one_or_ordered"
   },
   "list-marker-space": true,
-  "blanks-around-fences": true,
-  "blanks-around-lists": true,
+  "blanks-around-fences": false,
+  "blanks-around-lists": false,
   "no-bare-urls": true,
   "hr-style": {
     "style": "---"
