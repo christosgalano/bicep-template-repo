@@ -1,7 +1,7 @@
 targetScope = 'resourceGroup'
 
 /// Metadata ///
-metadata name = 'Sample'
+metadata name = 'Sample Module'
 metadata summary = 'Sample module to demonstrate the inteded structure and usage.'
 metadata description = '''
 This is a sample module to demonstrate the inteded structure and usage.
