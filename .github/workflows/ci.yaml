@@ -13,36 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Find out if any of the modules or environments have changed.
-  changed-resources:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    outputs:
-      modules-changed: ${{ steps.modules-changed.outputs.modules_changed }}
-      environments-changed: ${{ steps.environments-changed.outputs.environments_changed }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Check for changes in modules directory
-        id: modules-changed
-        run: |
-          git diff --exit-code --quiet bicep/modules/ || echo "modules_changed=true" >> $GITHUB_OUTPUT
-
-      - name: Check for changes in environments directory
-        id: environments-changed
-        run: |
-          git diff --exit-code --quiet bicep/environments/ || echo "environments_changed=true" >> $GITHUB_OUTPUT
-
   # Generate the Bicep documentation if any of the modules or environments have changed.
   generate-bicep-docs:
-    needs: changed-resources
-    if: |
-      github.event_name == 'pull_request' &&
-      (
-        needs.changed-resources.outputs.modules-changed == 'true' ||
-        needs.changed-resources.outputs.environments-changed == 'true'
-      )
     runs-on: ubuntu-latest
     permissions: 
       contents: write
