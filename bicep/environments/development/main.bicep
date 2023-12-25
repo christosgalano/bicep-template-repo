@@ -1,7 +1,11 @@
 targetScope = 'subscription'
 
 /// Metadata ///
-metadata description = 'Description of the main template.'
+metadata name = 'Sample - Development'
+metadata summary = 'Deployment of a sample workload in development environment.'
+metadata description = '''
+This is a sample deployment of a workload in a development environment.
+'''
 
 /// Parameters ///
 @metadata({
