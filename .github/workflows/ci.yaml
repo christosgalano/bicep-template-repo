@@ -34,7 +34,7 @@ jobs:
   # Validate the Bicep environment modules in matrix jobs. Each environment has its own matrix job.
   # If one or more matrix jobs fail, then the rest carry on normally and are not canceled.
   validate-environments:
-    name: Validate environment - ${{ matrix.environment }}
+    name: validate-${{ matrix.environment }}
     needs: select-environments
     runs-on: ubuntu-latest
     strategy:
