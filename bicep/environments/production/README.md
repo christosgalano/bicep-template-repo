@@ -1,8 +1,9 @@
-# Production Deployment
+# Sample - Production
 
-Summary describing the Bicep template for the production environment.
+Deployment of a sample workload in production environment.
 
-Description of the main template.
+This is a sample deployment of a workload in a production environment.
+
 
 ## Parameters
 

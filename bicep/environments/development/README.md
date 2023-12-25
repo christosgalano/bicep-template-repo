@@ -1,8 +1,9 @@
-# Development Deployment
+# Sample - Development
 
-Summary describing the Bicep template for the development environment.
+Deployment of a sample workload in development environment.
 
-Description of the main template.
+This is a sample deployment of a workload in a development environment.
+
 
 ## Parameters
 
