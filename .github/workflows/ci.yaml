@@ -77,7 +77,7 @@ jobs:
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2.12.0
         with:
-          check_name: PSRule Scan Results - ${{ matrix.environment }}
+          check_name: psrule-scan-${{ matrix.environment }}
           nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
           comment_mode: always
           fail_on: test failures
