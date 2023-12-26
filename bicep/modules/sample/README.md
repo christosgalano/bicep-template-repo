@@ -1,10 +1,10 @@
 # Sample Module
 
-Sample module to demonstrate the inteded structure and usage.
+Sample module to demonstrate the intended structure and usage.
 
-This is a sample module to demonstrate the inteded structure and usage.
+This is a sample module to demonstrate the intended structure and usage.
 
-Regarding the metadata part the fields are:
+Regarding the metadata part, the fields are:
 - **name:** Used for markdown page title.
 - **summary:** Used as a short description for the markdown page.
 - **description:** Used as a detailed description for the markdown page.

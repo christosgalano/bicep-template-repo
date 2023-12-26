@@ -1,8 +1,8 @@
 # Sample - Development
 
-Deployment of a sample workload in development environment.
+Deployment of a sample workload in the development environment.
 
-This is a sample deployment of a workload in a development environment.
+This is a sample deployment of a workload in the development environment.
 
 
 ## Parameters

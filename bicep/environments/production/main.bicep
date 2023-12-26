@@ -2,9 +2,9 @@ targetScope = 'subscription'
 
 /// Metadata ///
 metadata name = 'Sample - Production'
-metadata summary = 'Deployment of a sample workload in production environment.'
+metadata summary = 'Deployment of a sample workload in the production environment.'
 metadata description = '''
-This is a sample deployment of a workload in a production environment.
+This is a sample deployment of a workload in the production environment.
 '''
 
 /// Parameters ///

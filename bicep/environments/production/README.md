@@ -1,8 +1,8 @@
 # Sample - Production
 
-Deployment of a sample workload in production environment.
+Deployment of a sample workload in the production environment.
 
-This is a sample deployment of a workload in a production environment.
+This is a sample deployment of a workload in the production environment.
 
 
 ## Parameters

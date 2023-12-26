@@ -2,9 +2,9 @@ targetScope = 'subscription'
 
 /// Metadata ///
 metadata name = 'Sample - Development'
-metadata summary = 'Deployment of a sample workload in development environment.'
+metadata summary = 'Deployment of a sample workload in the development environment.'
 metadata description = '''
-This is a sample deployment of a workload in a development environment.
+This is a sample deployment of a workload in the development environment.
 '''
 
 /// Parameters ///
