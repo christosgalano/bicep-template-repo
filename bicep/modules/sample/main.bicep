@@ -14,7 +14,7 @@ Regarding the metadata part, the fields are:
 
 /// Parameters ///
 @sys.description('Required parameter.')
-#disable-next-line no-unused-params
+// #disable-next-line no-unused-params
 param required_param string
 
 @metadata({
