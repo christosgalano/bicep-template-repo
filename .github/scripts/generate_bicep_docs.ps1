@@ -6,7 +6,7 @@ $mainBicepFiles = Get-ChildItem -Path "bicep/**" -Filter "main.bicep" -Recurse
 foreach ($mainBicepFile in $mainBicepFiles) {
   # Get the directory that the main.bicep file is in
   $directory = Split-Path -Path $mainBicepFile.FullName
-  
+
   # Compile the main.bicep file into a main.json file
   $templateFile = "$directory/main.json"
   & bicep build $mainBicepFile.FullName --outfile $templateFile
