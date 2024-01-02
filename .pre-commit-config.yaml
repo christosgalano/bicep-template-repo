@@ -8,9 +8,9 @@ repos:
         args:
           - "--format"
           - "colored"
-        files: '\.yaml$|\.yml$|.yamllint$'
+        files: '\.yaml$|\.yml$|\.yamllint$'
       - id: bicep lint
         name: Bicep lint
         entry: bicep lint
         language: system
-        files: '\.bicep$|.bicepconfig$'
+        files: '\.bicep$|\.bicepconfig$'
