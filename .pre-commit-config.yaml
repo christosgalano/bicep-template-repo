@@ -13,4 +13,4 @@ repos:
         name: Bicep lint
         entry: bicep lint
         language: system
-        files: '\.bicep$'
+        files: '\.bicep$|.bicepconfig$'
