@@ -2,7 +2,7 @@ name: Update Resource Abbreviations
 
 on:
   schedule:
-    - cron: '0 0 1 * *'  # Run at 00:00 on the first day of every month
+  - cron: '0 0 1 * *'  # Run at 00:00 on the first day of every month
   workflow_dispatch:
 
 concurrency:
@@ -12,7 +12,7 @@ concurrency:
 jobs:
   update-abbreviations:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       issues: write
       contents: write
       pull-requests: write

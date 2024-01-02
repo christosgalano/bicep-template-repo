@@ -3,16 +3,11 @@ extends: default
 rules:
   indentation:
     spaces: 2
-  commas:
-    max-spaces-before: 0
-    min-spaces-after: 1
-    max-spaces-after: 1
-  hyphens:
-    max-spaces-after: 1
+    indent-sequences: false
   trailing-spaces: enable
   new-line-at-end-of-file: enable
   line-length:
-    max: 100
+    max: 80
     level: warning
   comments:
     require-starting-space: true
@@ -21,3 +16,14 @@ rules:
   comments-indentation: {}
   truthy: enable
   key-duplicates: enable
+  hyphens:
+    max-spaces-after: 1
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+  document-start: disable
+  document-end: disable

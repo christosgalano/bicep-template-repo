@@ -1,8 +1,0 @@
-repos:
-  - repo: local
-    hooks:
-      - id: bicep-lint
-        name: Bicep Lint
-        entry: bicep lint
-        language: script
-        files: '\.bicep$'
