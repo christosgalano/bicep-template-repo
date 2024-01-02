@@ -16,14 +16,14 @@ jobs:
   # Generate the Bicep documentation if any of the modules or environments have changed.
   generate-bicep-docs:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
-      
+
       - name: Install necessary modules
         shell: pwsh
         run: |
@@ -68,7 +68,7 @@ jobs:
           echo "Selected environments: $environments_json"
           echo "environments=$environments_json" >> $GITHUB_OUTPUT
         working-directory: bicep/environments
-  
+
   # Validate the Bicep environment modules in matrix jobs. Each environment has its own matrix job.
   # If one or more matrix jobs fail, then the rest carry on normally and are not canceled.
   validate-environments:
@@ -95,7 +95,7 @@ jobs:
         run: |
           az bicep lint --file main.bicep
         working-directory: ${{ env.BICEP_ENV_DIR }}
-      
+
       - name: Bicep build
         run: |
           az bicep build --file main.bicep --outfile main.json
@@ -107,7 +107,7 @@ jobs:
         with:
           inputPath: ${{ env.BICEP_ENV_DIR }}/main*.json
           modules: "PSRule.Rules.Azure"
-          outputFormat: NUnit3 
+          outputFormat: NUnit3
           outputPath: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
           summary: true
 

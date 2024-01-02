@@ -7,43 +7,43 @@ on:
         description: "Name of the deployment stack to create/update."
         required: true
         type: string
-      
+
       location:
         description: "Azure region to store the deployment stack."
         required: true
         type: choice
-        options: # Modify this list to include the Azure regions you want to support
-        - "northeurope"
-        - "westeurope"
-        - "italynorth"
-        - "francesouth"
-        - "francecentral"
-        - "germanynorth"
-        - "germanywestcentral"
-        - "switzerlandnorth"
+        options:  # Modify this list to include the Azure regions you want to support
+          - "northeurope"
+          - "westeurope"
+          - "italynorth"
+          - "francesouth"
+          - "francecentral"
+          - "germanynorth"
+          - "germanywestcentral"
+          - "switzerlandnorth"
         default: "westeurope"
-      
+
       environment:
         description: "Environment to deploy the stack to."
         type: environment
-      
+
       deny_settings_mode:
         description: "Deny settings mode for the deployment stack."
         required: true
         type: choice
         options:
-        - "none"
-        - "denyDelete"
-        - "denyWriteAndDelete"
+          - "none"
+          - "denyDelete"
+          - "denyWriteAndDelete"
         default: "none"
-      
+
       delete_all:
         description: "Delete rather than detach the stack's resources and resource groups."
         required: true
         type: choice
         options:
-        - "false"
-        - "true"
+          - "false"
+          - "true"
         default: "false"
 
 concurrency:
@@ -58,7 +58,7 @@ jobs:
       checks: write
       contents: write
       pull-requests: write
-  
+
   deploy-infra:
     runs-on: ubuntu-latest
     needs: validate-bicep
@@ -76,7 +76,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      
+
       - name: Create/Update deployment stack
         run: |
           az stack sub create \

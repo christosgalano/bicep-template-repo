@@ -6,6 +6,11 @@ repos:
         entry: yamllint
         language: system
         args:
-          - "-f"
-          - "github"
+          - "--format"
+          - "colored"
         files: '\.yaml$|\.yml$|.yamllint$'
+      - id: bicep lint
+        name: Bicep lint
+        entry: bicep lint
+        language: system
+        files: '\.bicep$'
