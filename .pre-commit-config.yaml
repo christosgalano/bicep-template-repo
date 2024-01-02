@@ -1,0 +1,11 @@
+repos:
+  - repo: local
+    hooks:
+      - id: check-yaml
+        name: Check YAML
+        entry: yamllint
+        language: system
+        args:
+          - "-f"
+          - "github"
+        files: '\.yaml$|\.yml$|.yamllint$'
