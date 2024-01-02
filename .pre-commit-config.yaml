@@ -2,7 +2,7 @@ repos:
   - repo: local
     hooks:
       - id: check-yaml
-        name: Check YAML
+        name: Yaml lint
         entry: yamllint
         language: system
         args:
