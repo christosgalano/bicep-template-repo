@@ -1,7 +1,5 @@
 # Sample - Production
 
-Deployment of a sample workload in the production environment.
-
 This is a sample deployment of a workload in the production environment.
 
 
@@ -12,6 +10,7 @@ Parameter name | Required | Description
 location       | Yes      | Azure region used for the deployment of all resources.
 workload       | Yes      | Name of the workload that will be deployed.
 environment    | No       | Name of the workload's environment.
+tags           | No       | Tags to be applied to all resources.
 
 ### location
 
@@ -35,6 +34,12 @@ Name of the workload's environment.
 
 - Allowed values: `prod`, `production`
 
+### tags
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Tags to be applied to all resources.
+
 ## Snippets
 
 ### Parameter file
@@ -55,6 +60,9 @@ Name of the workload's environment.
         },
         "environment": {
             "value": "prod"
+        },
+        "tags": {
+            "value": {}
         }
     }
 }

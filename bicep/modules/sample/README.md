@@ -1,12 +1,9 @@
 # Sample Module
 
-Sample module to demonstrate the intended structure and usage.
-
 This is a sample module to demonstrate the intended structure and usage.
 
 Regarding the metadata part, the fields are:
 - **name:** Used for markdown page title.
-- **summary:** Used as a short description for the markdown page.
 - **description:** Used as a detailed description for the markdown page.
 
 
@@ -18,6 +15,7 @@ required_param | Yes      | Required parameter.
 location       | No       | The Azure region to deploy to.
 optional_param_1 | No       | Optional parameter 1.
 optional_param_2 | No       | Optional parameter 2.
+tags           | No       | Tags to be applied to resources.
 
 ### required_param
 
@@ -45,6 +43,12 @@ Optional parameter 1.
 
 Optional parameter 2.
 
+### tags
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Tags to be applied to resources.
+
 ## Snippets
 
 ### Parameter file
@@ -68,6 +72,9 @@ Optional parameter 2.
         },
         "optional_param_2": {
             "value": ""
+        },
+        "tags": {
+            "value": {}
         }
     }
 }

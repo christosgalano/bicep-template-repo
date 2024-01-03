@@ -5,8 +5,8 @@ binding:
     - resourceType
 
 requires:
-  PSRule: ">=2.9.0"
-  PSRule.Rules.Azure: ">=1.30.0"
+  PSRule: '>=2.9.0'
+  PSRule.Rules.Azure: '>=1.30.0'
 
 include:
   module:
@@ -17,19 +17,19 @@ execution:
 
 output:
   culture:
-    - "en-US"
-  style: "GitHubActions"
+    - 'en-US'
+  style: 'GitHubActions'
 
 input:
   pathIgnore:
     # Exclude bicepconfig.json
-    - "bicepconfig.json"
+    - 'bicepconfig.json'
 
     # Exclude module files
-    - "bicep/modules/**/*.bicep"
+    - 'bicep/modules/**/*.bicep'
 
     # Include test files for modules
-    - "!bicep/modules/**/*.tests.bicep"
+    - '!bicep/modules/**/*.tests.bicep'
 
 configuration:
   # Enable Bicep CLI checks.
@@ -53,9 +53,8 @@ rule:
 
   # Ignore the following rules for all resources
   exclude:
-    # Template
     - Azure.Template.UseVariables
     - Azure.Template.UseDescriptions
 
     # Resource
-    - Azure.Resource.UseTags
+    # - Azure.Resource.UseTags
