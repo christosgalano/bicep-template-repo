@@ -2,7 +2,6 @@ targetScope = 'subscription'
 
 /// Metadata ///
 metadata name = 'Sample - Production'
-metadata summary = 'Deployment of a sample workload in the production environment.'
 metadata description = '''
 This is a sample deployment of a workload in the production environment.
 '''
@@ -28,6 +27,9 @@ param workload string
 @sys.description('Name of the workload\'s environment.')
 param environment string = 'prod'
 
+@sys.description('Tags to be applied to all resources.')
+param tags object = {}
+
 /// Variables ///
 @sys.description('Abbreviations for resource names.')
 #disable-next-line no-unused-vars
@@ -49,6 +51,8 @@ var unique_suffix = '${suffix}-${resource_token}'
 @sys.description('Resource group that will contain all resources.')
 resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   name: '${abbreviations.ResourceGroup}-${suffix}'
+
+  tags: tags
   location: location
 }
 
@@ -59,6 +63,8 @@ module sample '../../modules/sample/main.bicep' = {
   params: {
     required_param: 'required value'
     optional_param_1: 'optional value 1'
+
+    tags: tags
     location: location
   }
 }

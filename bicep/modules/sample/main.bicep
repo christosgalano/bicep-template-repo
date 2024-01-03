@@ -2,13 +2,11 @@ targetScope = 'resourceGroup'
 
 /// Metadata ///
 metadata name = 'Sample Module'
-metadata summary = 'Sample module to demonstrate the intended structure and usage.'
 metadata description = '''
 This is a sample module to demonstrate the intended structure and usage.
 
 Regarding the metadata part, the fields are:
 - **name:** Used for markdown page title.
-- **summary:** Used as a short description for the markdown page.
 - **description:** Used as a detailed description for the markdown page.
 '''
 
@@ -31,3 +29,7 @@ param optional_param_1 string = ''
 @sys.description('Optional parameter 2.')
 #disable-next-line no-unused-params
 param optional_param_2 string = ''
+
+@sys.description('Tags to be applied to resources.')
+#disable-next-line no-unused-params
+param tags object = {}

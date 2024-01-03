@@ -12,6 +12,9 @@ include:
   module:
     - PSRule.Rules.Azure
 
+execution:
+  unprocessedObject: Ignore
+
 output:
   culture:
     - "en-US"
