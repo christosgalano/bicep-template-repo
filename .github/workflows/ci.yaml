@@ -113,7 +113,7 @@ jobs:
 
       - name: Publish results
         if: always()
-        uses: EnricoMi/publish-unit-test-result-action@v2.12.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.13.0
         with:
           check_name: psrule-scan-${{ matrix.environment }}
           nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
