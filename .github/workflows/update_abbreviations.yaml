@@ -54,7 +54,6 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add bicep/abbreviations.json
           git commit -m 'Update resource abbreviations'
-          git push origin ${{ env.BRANCH_NAME }}
 
       # Make sure to enable *Allow GitHub Actions to create and approve pull requests* under Settings > Actions
       - name: Create pull request
