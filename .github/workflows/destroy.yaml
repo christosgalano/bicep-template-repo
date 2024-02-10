@@ -1,3 +1,5 @@
+# File: destroy.yaml
+
 name: Destroy Azure Infrastructure
 
 on:

@@ -1,5 +1,5 @@
 ---
-# Synopsis: Azure resource must have an valid env tag set.
+# Synopsis: Azure resource must have valid tags for environment and criticality.
 apiVersion: github.com/microsoft/PSRule/v1
 kind: Rule
 metadata:
