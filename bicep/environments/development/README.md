@@ -1,69 +1,37 @@
 # Sample - Development
 
+## Description
+
 This is a sample deployment of a workload in the development environment.
 
 
+## Modules
+
+| Symbolic Name | Source | Description |
+| --- | --- | --- |
+| sample | ../../modules/sample/main.bicep | Deploy the sample module. |
+
+## Resources
+
+| Symbolic Name | Type | Description |
+| --- | --- | --- |
+| rg | [Microsoft.Resources/resourceGroups](https://learn.microsoft.com/en-us/azure/templates/microsoft.resources/resourcegroups) | Resource group that will contain all resources. |
+
 ## Parameters
 
-Parameter name | Required | Description
--------------- | -------- | -----------
-location       | Yes      | Azure region used for the deployment of all resources.
-workload       | Yes      | Name of the workload that will be deployed.
-environment    | No       | Name of the workload's environment.
-tags           | No       | Tags to be applied to all resources.
+| Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| environment | string | Name of the workload's environment. | dev |
+| location | string | Azure region used for the deployment of all resources. |  |
+| tags | object | Tags to be applied to all resources. | {} |
+| workload | string | Name of the workload that will be deployed. |  |
 
-### location
+## Variables
 
-![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
-
-Azure region used for the deployment of all resources.
-
-### workload
-
-![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
-
-Name of the workload that will be deployed.
-
-### environment
-
-![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
-
-Name of the workload's environment.
-
-- Default value: `dev`
-
-- Allowed values: `dev`, `development`
-
-### tags
-
-![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
-
-Tags to be applied to all resources.
-
-## Snippets
-
-### Parameter file
-
-```json
-{
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "metadata": {
-        "template": "bicep/environments/development/main.json"
-    },
-    "parameters": {
-        "location": {
-            "value": ""
-        },
-        "workload": {
-            "value": ""
-        },
-        "environment": {
-            "value": "dev"
-        },
-        "tags": {
-            "value": {}
-        }
-    }
-}
-```
+| Name | Description |
+| --- | --- |
+| $fxv#0 | |
+| abbreviations | |
+| resource_token | |
+| suffix | |
+| unique_suffix | |
