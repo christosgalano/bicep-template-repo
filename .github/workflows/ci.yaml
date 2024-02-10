@@ -4,10 +4,8 @@ name: Continuous Integration
 
 on:
   pull_request:
-    paths:
-      - "bicep/**"
-      - "!bicep/abbreviations.json"
-      - ".github/**"
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
