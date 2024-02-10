@@ -1,6 +1,5 @@
 {
   "AISearch": "srch",
-  "AzureAIServicesMultiServiceAccount": "aisa",
   "AzureAIVideoIndexer": "avi",
   "AzureMachineLearningWorkspace": "mlw",
   "AzureOpenAIService": "oai",
