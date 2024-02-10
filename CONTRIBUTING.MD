@@ -1,6 +1,6 @@
-# Contributing to the azure-template-repo
+# Contributing to the bicep-template-repo
 
-Thank you for considering contributing to the **azure-template-repo**! We welcome your input and appreciate your efforts to improve this resource. To ensure a smooth and collaborative experience, please review the guidelines below before making any contributions.
+Thank you for considering contributing to the **bicep-template-repo**! We welcome your input and appreciate your efforts to improve this resource. To ensure a smooth and collaborative experience, please review the guidelines below before making any contributions.
 
 ## Ways to Contribute
 
@@ -37,7 +37,7 @@ To start contributing, follow these steps:
 7. Wait for a review and collaborate with the maintainers to address any feedback.
 8. Once your contribution is accepted, it will be merged into the main repository. Thank you for your contribution!
 9. By participating in this project, you agree to abide by the [Code of Conduct](https://github.com/christosgalano/.github/blob/main/CODE_OF_CONDUCT.md).
-10. We appreciate your dedication to improving the azure-template-repo. Together, let's make it the best resource for the Azure community!
+10. We appreciate your dedication to improving the bicep-template-repo. Together, let's make it the best resource for the Azure community!
 
 If you have any questions or need further assistance, feel free to reach out to us.
 

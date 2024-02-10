@@ -24,23 +24,19 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Install necessary modules
-        shell: pwsh
+      - name: Download bicep-docs
         run: |
-          Install-Module -Name PSDocs -Force
-          Install-Module -Name PSDocs.Azure -Force
+          wget https://github.com/christosgalano/bicep-docs/releases/download/v1.0.1/bicep-docs_linux_amd64.tar.gz -O bicep-docs.tar.gz
+          tar xzf bicep-docs.tar.gz
+          chmod +x bicep-docs
+          mv bicep-docs /usr/local/bin
 
-      - name: Add execute permissions to Powershell script
-        run: chmod u+x ./.github/scripts/generate_bicep_docs.ps1
-
-      - name: Run PowerShell script
-        shell: pwsh
-        run: ./.github/scripts/generate_bicep_docs.ps1
+      - name: Run bicep-docs
+        run: bicep-docs --input ./bicep --verbose
 
       - name: Check for changes in bicep directory
         id: git-diff
-        run: |
-          git diff --exit-code --quiet bicep/ || echo "changed=true" >> $GITHUB_OUTPUT
+        run: git diff --exit-code --quiet bicep/ || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push if there are changes
         if: steps.git-diff.outputs.changed == 'true'
@@ -48,7 +44,7 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add bicep
-          git commit -m "Update bicep documentation"
+          git commit -m "Update documentation"
           git push
 
   # Retrieve and export all of the environments in the "bicep/environments" directory as a JSON array.
@@ -92,8 +88,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bicep lint
-        run: |
-          az bicep lint --file main.bicep
+        run: az bicep lint --file main.bicep
         working-directory: ${{ env.BICEP_ENV_DIR }}
 
       - name: Bicep build
