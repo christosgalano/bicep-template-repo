@@ -40,7 +40,8 @@ def main(file_path) -> None:
     url = "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations"
     data = fetch_resource_abbreviations(url)
     with open(file=file_path, mode="w") as f:
-        json.dump(obj=data, fp=f, indent=4)
+        json.dump(obj=data, fp=f, indent=2)
+        f.write("\n")
 
 
 if __name__ == "__main__":

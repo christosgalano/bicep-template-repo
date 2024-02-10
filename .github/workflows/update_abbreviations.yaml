@@ -37,7 +37,12 @@ jobs:
 
       - name: Check for changes
         id: git-diff
-        run: git diff --exit-code --quiet || echo "changed=true" >> $GITHUB_OUTPUT
+        run: |
+          change=false
+          if git status --porcelain | grep -E 'bicep/abbreviations.json'; then
+            change=true
+          fi
+          echo "changed=$change" >> $GITHUB_OUTPUT
 
       - name: Create/Update branch and commit changes
         if: steps.git-diff.outputs.changed == 'true'
