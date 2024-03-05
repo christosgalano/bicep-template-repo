@@ -25,7 +25,8 @@ jobs:
 
       - name: Download bicep-docs
         run: |
-          wget https://github.com/christosgalano/bicep-docs/releases/download/v1.0.1/bicep-docs_linux_amd64.tar.gz -O bicep-docs.tar.gz
+          latest_version=$(curl -s "https://api.github.com/repos/christosgalano/bicep-docs/releases/latest" | jq -r .tag_name)
+          wget https://github.com/christosgalano/bicep-docs/releases/download/$latest_version/bicep-docs_linux_amd64.tar.gz -O bicep-docs.tar.gz
           tar xzf bicep-docs.tar.gz
           chmod +x bicep-docs
           mv bicep-docs /usr/local/bin
