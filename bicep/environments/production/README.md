@@ -30,7 +30,6 @@ This is a sample deployment of a workload in the production environment.
 
 | Name | Description |
 | --- | --- |
-| $fxv#0 | |
 | abbreviations | |
 | resource_token | |
 | suffix | |
