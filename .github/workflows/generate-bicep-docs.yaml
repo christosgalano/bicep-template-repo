@@ -6,10 +6,6 @@ on:
   workflow_call:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   generate-bicep-docs:
     runs-on: ubuntu-latest
