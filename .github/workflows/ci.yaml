@@ -3,55 +3,14 @@
 name: Continuous Integration
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
+  workflow_call:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # Generate the Bicep documentation if any of the modules or environments have changed.
-  generate-bicep-docs:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Download bicep-docs
-        run: |
-          latest_version=$(curl -s "https://api.github.com/repos/christosgalano/bicep-docs/releases/latest" | jq -r .tag_name)
-          wget https://github.com/christosgalano/bicep-docs/releases/download/$latest_version/bicep-docs_linux_amd64.tar.gz -O bicep-docs.tar.gz
-          tar xzf bicep-docs.tar.gz
-          chmod +x bicep-docs
-          mv bicep-docs /usr/local/bin
-
-      - name: Run bicep-docs
-        run: bicep-docs --input ./bicep --verbose
-
-      - name: Check for changes in bicep directory
-        id: git-diff
-        run: |
-          change=false
-          if git status --porcelain | grep -E 'bicep/.*/README.md'; then
-            change=true
-          fi
-          echo "changed=$change" >> $GITHUB_OUTPUT
-
-      - name: Commit and push if there are changes
-        if: steps.git-diff.outputs.changed == 'true'
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add bicep
-          git commit -m "Update documentation"
-          git push
-
   # Retrieve and export all of the environments in the "bicep/environments" directory as a JSON array.
   select-environments:
     runs-on: ubuntu-latest
@@ -80,7 +39,6 @@ jobs:
       contents: read
       issues: read
       checks: write
-      pull-requests: write
     strategy:
       max-parallel: 5
       fail-fast: false
@@ -131,3 +89,9 @@ jobs:
         with:
           name: psrule-results-${{ matrix.environment }}-run-${{ github.run_number }}
           path: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
+
+  generate-bicep-docs:
+    uses: ./.github/workflows/generate-bicep-docs.yaml
+    needs: validate-environments
+    permissions:
+      contents: write

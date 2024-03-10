@@ -53,17 +53,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-bicep:
+  ci:
     uses: ./.github/workflows/ci.yaml
     permissions:
       issues: read
       checks: write
       contents: write
-      pull-requests: write
 
   deploy-infra:
     runs-on: ubuntu-latest
-    needs: validate-bicep
+    needs: ci
     permissions:
       id-token: write
       contents: read
