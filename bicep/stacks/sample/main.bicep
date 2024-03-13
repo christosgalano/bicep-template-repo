@@ -1,9 +1,15 @@
 targetScope = 'subscription'
 
 /// Metadata ///
-metadata name = 'Sample - Production'
+metadata name = 'Sample Stack'
 metadata description = '''
-This is a sample deployment of a workload in the production environment.
+This is a sample stack definition. Stacks are not meant to be deployed directly, but rather to be used as a template for creating deployments.
+
+For example if you have two environments (development and production) and they resources that they create are the same, then instead of having to redefine the resources in each environment, you can create a stack for the resources and then use the stack in each environment.
+
+So in this example, you would create a stack for the resources and then use the stack in the development and production environments. This way, if you need to make a change to the resources, you only need to make the change in one place and it will be reflected in both environments.
+
+At the same time the configuration of the resources can be different in each environment, so you can use parameters to pass in the environment specific configuration.
 '''
 
 /// Parameters ///
@@ -20,10 +26,6 @@ param workload string
 
 @maxLength(12)
 @minLength(2)
-@allowed([
-  'prod'
-  'production'
-])
 @sys.description('Name of the workload\'s environment.')
 param environment string = 'prod'
 
@@ -47,14 +49,10 @@ var suffix = '${workload}-${environment}-${location}'
 #disable-next-line no-unused-vars
 var unique_suffix = '${suffix}-${resource_token}'
 
-/// Solution 1: Modules & Resources ///
-
-// Use this approach if the environments differ significantly in terms of resources.
-
+/// Modules & Resources ///
 @sys.description('Resource group that will contain all resources.')
 resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   name: '${abbreviations.ResourceGroup}-${suffix}'
-
   tags: tags
   location: location
 }
@@ -62,28 +60,11 @@ resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
 @sys.description('Deploy the sample module.')
 module sample '../../modules/sample/main.bicep' = {
   scope: rg
-  name: 'sample-deployment'
+  name: 'sample-stack'
   params: {
     required_param: 'required value'
     optional_param_1: 'optional value 1'
-
     tags: tags
     location: location
-  }
-}
-
-/// Solution 2: Stacks ///
-
-// Use this approach if the environments differ only slightly in terms of resources.
-
-@sys.description('Deploy the sample stack.')
-module sample_stack '../../stacks/sample/main.bicep' = {
-  scope: subscription()
-  name: 'sample-stack'
-  params: {
-    tags: tags
-    location: location
-    workload: workload
-    environment: environment
   }
 }

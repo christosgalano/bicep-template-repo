@@ -47,7 +47,10 @@ var suffix = '${workload}-${environment}-${location}'
 #disable-next-line no-unused-vars
 var unique_suffix = '${suffix}-${resource_token}'
 
-/// Modules & Resources ///
+/// Solution 1: Modules & Resources ///
+
+// Use this approach if the environments differ significantly in terms of resources.
+
 @sys.description('Resource group that will contain all resources.')
 resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   name: '${abbreviations.ResourceGroup}-${suffix}'
@@ -66,5 +69,21 @@ module sample '../../modules/sample/main.bicep' = {
 
     tags: tags
     location: location
+  }
+}
+
+/// Solution 2: Stacks ///
+
+// Use this approach if the environments differ only slightly in terms of resources.
+
+@sys.description('Deploy the sample stack.')
+module sample_stack '../../stacks/sample/main.bicep' = {
+  scope: subscription()
+  name: 'sample-stack'
+  params: {
+    tags: tags
+    location: location
+    workload: workload
+    environment: environment
   }
 }
