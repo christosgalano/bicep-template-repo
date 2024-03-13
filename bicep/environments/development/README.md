@@ -10,6 +10,7 @@ This is a sample deployment of a workload in the development environment.
 | Symbolic Name | Source | Description |
 | --- | --- | --- |
 | sample | ../../modules/sample/main.bicep | Deploy the sample module. |
+| sample_stack | ../../stacks/sample/main.bicep | Deploy the sample stack. |
 
 ## Resources
 
