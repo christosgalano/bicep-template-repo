@@ -45,6 +45,7 @@ jobs:
       contents: read
       issues: read
       checks: write
+      pull-requests: write
     strategy:
       max-parallel: 5
       fail-fast: false
@@ -81,7 +82,7 @@ jobs:
         with:
           check_name: psrule-scan-${{ matrix.environment }}
           nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
-          comment_mode: off
+          comment_mode: always
           fail_on: test failures
           action_fail: false
           ignore_runs: false
