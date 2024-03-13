@@ -5,9 +5,7 @@ name: ci
 on:
   push:
     branches:
-      - '*'
-    tags:
-      - 'v*'
+      - 'main'
   pull_request:
     branches:
       - 'main'
