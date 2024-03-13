@@ -1,10 +1,16 @@
 # File: ci.yaml
 
-name: Continuous Integration
+name: ci
 
 on:
   push:
-  workflow_call:
+    branches:
+      - '*'
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - 'main'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
