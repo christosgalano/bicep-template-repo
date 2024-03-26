@@ -31,7 +31,7 @@ This is a sample deployment of a workload in the development environment.
 
 | Name | Description |
 | --- | --- |
-| abbreviations | |
-| resource_token | |
-| suffix | |
-| unique_suffix | |
+| abbreviations | Abbreviations for resource names. |
+| resource_token | Unique token to be used in naming resources. |
+| suffix | Suffix to be used in naming resources. |
+| unique_suffix | Unique suffix to be used in naming resources. |
