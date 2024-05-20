@@ -5,6 +5,27 @@
 This is a sample deployment of a workload in the production environment.
 
 
+## Usage
+
+Here is a basic example of how to use this Bicep module:
+
+```bicep
+module reference_name 'path_to_module | container_registry_reference' = {
+  name: 'deployment_name'
+  params: {
+    // Required parameters
+    location:
+    workload:
+
+    // Optional parameters
+    environment: 'prod'
+    tags: {}
+  }
+}
+```
+
+> Note: In the default values, strings enclosed in square brackets (e.g. '[resourceGroup().location]' or '[__bicep.function_name(args...)']) represent function calls or references.
+
 ## Modules
 
 | Symbolic Name | Source | Description |
@@ -22,7 +43,7 @@ This is a sample deployment of a workload in the production environment.
 
 | Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| environment | string | Name of the workload's environment. | prod |
+| environment | string | Name of the workload's environment. | "prod" |
 | location | string | Azure region used for the deployment of all resources. |  |
 | tags | object | Tags to be applied to all resources. | {} |
 | workload | string | Name of the workload that will be deployed. |  |
