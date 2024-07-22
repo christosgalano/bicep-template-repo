@@ -190,7 +190,6 @@
   "FileShare": "share",
   "StorageAccount": "st",
   "StorageSyncServiceName": "sss",
-  "AzureLabServicesLabPlan": "lp",
   "VirtualDesktopHostPool": "vdpool",
   "VirtualDesktopApplicationGroup": "vdag",
   "VirtualDesktopWorkspace": "vdws",
