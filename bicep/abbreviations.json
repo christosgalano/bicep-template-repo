@@ -1,6 +1,8 @@
 {
   "AISearch": "srch",
-  "AzureAIServicesMultiServiceAccount": "aisa",
+  "AzureAIServices": "ais",
+  "AzureAIStudioHub": "hub",
+  "AzureAIStudioProject": "proj",
   "AzureAIVideoIndexer": "avi",
   "AzureMachineLearningWorkspace": "mlw",
   "AzureOpenAIService": "oai",
