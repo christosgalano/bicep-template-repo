@@ -9,6 +9,11 @@ on:
     branches:
       - 'main'
   workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+        description: "Environment to validate."
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -19,19 +24,24 @@ jobs:
   select-environments:
     runs-on: ubuntu-latest
     outputs:
-      environments: ${{ steps.select-all-environments.outputs.environments }}
+      environments: ${{ steps.select-environments.outputs.environments }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select all environments
-        id: select-all-environments
+      - name: Select environments
+        id: select-environments
         run: |
-          environments=( $(ls ./) )
+          if [[ "${{ github.event_name }}" == "workflow_call" ]]; then
+            environments=( "${{ github.event.inputs.environment }}" )
+          else
+            environments=( $(ls ./) )
+          fi
           environments_json=$(jq -c -n '$ARGS.positional' --args "${environments[@]}")
           echo "Selected environments: $environments_json"
           echo "environments=$environments_json" >> $GITHUB_OUTPUT
         working-directory: bicep/environments
+
 
   # Validate the Bicep environment modules in matrix jobs. Each environment has its own matrix job.
   # If one or more matrix jobs fail, then the rest carry on normally and are not canceled.
