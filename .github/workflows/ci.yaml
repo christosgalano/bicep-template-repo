@@ -32,7 +32,7 @@ jobs:
       - name: Select environments
         id: select-environments
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_call" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             environments=( "${{ github.event.inputs.environment }}" )
           else
             environments=( $(ls ./) )
