@@ -57,6 +57,7 @@ jobs:
       issues: read
       checks: write
       contents: write
+      pull-requests: write
 
   deploy-infra:
     runs-on: ubuntu-latest
