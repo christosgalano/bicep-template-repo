@@ -5,9 +5,17 @@ on:
   push:
     branches:
       - 'main'
+    paths:
+      - 'bicep/**'
+      - '.github/workflows/ci.yaml'
+      - '.github/workflows/generate-bicep-docs.yaml'
   pull_request:
     branches:
       - 'main'
+    paths:
+      - 'bicep/**'
+      - '.github/workflows/ci.yaml'
+      - '.github/workflows/generate-bicep-docs.yaml'
   workflow_call:
     inputs:
       environment:
