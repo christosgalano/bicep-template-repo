@@ -1,6 +1,5 @@
 # File: deploy.yaml
-name: Deploy Bicep Environment
-
+name: Deploy Azure Infrastructure
 on:
   workflow_dispatch:
     inputs:
