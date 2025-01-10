@@ -13,14 +13,15 @@ on:
         type: environment
         required: true
 
-      delete_all:
-        description: "Delete rather than detach the stack's resources and resource groups."
+      action_on_unmanage:
+        description: "Defines what happens to resources that are no longer managed after the stack is updated or deleted."
         required: true
         type: choice
         options:
-          - "true"
-          - "false"
-        default: "true"
+          - "deleteAll"
+          - "deleteResources"
+          - "detachAll"
+        default: "deleteAll"
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.environment }}
@@ -59,5 +60,5 @@ jobs:
         run: |
           az stack sub delete \
           --name ${{ inputs.deployment_stack }} \
-          --delete-all ${{ inputs.delete_all }} \
+          ----action-on-unmanage ${{ inputs.action_on_unmanage }} \
           --yes
