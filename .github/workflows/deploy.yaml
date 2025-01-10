@@ -28,7 +28,7 @@ on:
         type: environment
 
       deny_settings_mode:
-        description: "Deny settings mode for the deployment stack."
+        description: "Defines which operations are denied on resources managed by the stack."
         required: true
         type: choice
         options:
@@ -37,14 +37,15 @@ on:
           - "denyWriteAndDelete"
         default: "none"
 
-      delete_all:
-        description: "Delete rather than detach the stack's resources and resource groups."
+      action_on_unmanage:
+        description: "Defines what happens to resources that are no longer managed after the stack is updated or deleted."
         required: true
         type: choice
         options:
-          - "false"
-          - "true"
-        default: "false"
+          - "deleteAll"
+          - "deleteResources"
+          - "detachAll"
+        default: "deleteAll"
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.environment }}
@@ -53,6 +54,8 @@ concurrency:
 jobs:
   ci:
     uses: ./.github/workflows/ci.yaml
+    with:
+      environment: ${{ inputs.environment }}
     permissions:
       issues: read
       checks: write
@@ -83,10 +86,9 @@ jobs:
           --name ${{ inputs.deployment_stack }} \
           --location ${{ inputs.location }} \
           --deny-settings-mode ${{ inputs.deny_settings_mode }} \
-          --delete-all ${{ inputs.delete_all }} \
+          --action-on-unmanage ${{ inputs.action_on_unmanage }} \
           --template-file main.bicep \
-          --parameters main.bicepparam \
-          --yes
+          --parameters main.bicepparam
         working-directory: bicep/environments/${{ inputs.environment }}
 
       - name: Create/Update deployment stack
@@ -95,7 +97,7 @@ jobs:
           --name ${{ inputs.deployment_stack }} \
           --location ${{ inputs.location }} \
           --deny-settings-mode ${{ inputs.deny_settings_mode }} \
-          --delete-all ${{ inputs.delete_all }} \
+          --action-on-unmanage ${{ inputs.action_on_unmanage }} \
           --template-file main.bicep \
           --parameters main.bicepparam \
           --yes
