@@ -60,5 +60,5 @@ jobs:
         run: |
           az stack sub delete \
           --name ${{ inputs.deployment_stack }} \
-          ----action-on-unmanage ${{ inputs.action_on_unmanage }} \
+          --action-on-unmanage ${{ inputs.action_on_unmanage }} \
           --yes
