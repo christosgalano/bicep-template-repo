@@ -1,5 +1,4 @@
 # File: generate-bicep-docs.yaml
-
 name: Generate Bicep Documentation
 
 on:

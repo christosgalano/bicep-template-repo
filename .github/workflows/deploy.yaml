@@ -1,6 +1,5 @@
 # File: deploy.yaml
-
-name: Deploy Azure Infrastructure
+name: Deploy Bicep Environment
 
 on:
   workflow_dispatch:
@@ -23,7 +22,7 @@ on:
           - "germanynorth"
           - "germanywestcentral"
           - "switzerlandnorth"
-        default: "westeurope"
+        default: "northeurope"
 
       environment:
         description: "Environment to deploy the stack to."
@@ -77,6 +76,18 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Validate deployment stack
+        run: |
+          az stack sub validate \
+          --name ${{ inputs.deployment_stack }} \
+          --location ${{ inputs.location }} \
+          --deny-settings-mode ${{ inputs.deny_settings_mode }} \
+          --delete-all ${{ inputs.delete_all }} \
+          --template-file main.bicep \
+          --parameters main.bicepparam \
+          --yes
+        working-directory: bicep/environments/${{ inputs.environment }}
 
       - name: Create/Update deployment stack
         run: |

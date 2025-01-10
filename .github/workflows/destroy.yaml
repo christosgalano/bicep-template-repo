@@ -1,6 +1,5 @@
 # File: destroy.yaml
-
-name: Destroy Azure Infrastructure
+name: Destroy Bicep Environment
 
 on:
   workflow_dispatch:

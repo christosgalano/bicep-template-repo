@@ -52,7 +52,7 @@ var unique_suffix = '${suffix}-${resource_token}'
 // Use this approach if the environments differ significantly in terms of resources.
 
 @sys.description('Resource group that will contain all resources.')
-resource rg 'Microsoft.Resources/resourceGroups@2023-07-01' = {
+resource rg 'Microsoft.Resources/resourceGroups@2024-07-01' = {
   name: '${abbreviations.ResourceGroup}-${suffix}'
 
   tags: tags
