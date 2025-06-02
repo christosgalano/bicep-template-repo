@@ -34,7 +34,7 @@ jobs:
       issues: write
     steps:
       - name: Manual approval
-        uses: trstringer/manual-approval@v1.9.1
+        uses: trstringer/manual-approval@v1.10.0
         with:
           approvers: christosgalano
           minimum-approvals: 1
