@@ -2,7 +2,7 @@
 
 ## General
 
-Welcome to the **bicep-template-repo**! This repository serves as a foundation for your Bicep-related Azure projects, providing a streamlined setup and management process. With a well-organized structure, comprehensive documentation, and automated workflows, you can focus on building your infrastructure using Bicep with ease.
+Welcome to the **bicep-template-repo**! This repository serves as a foundation for your Bicep-related projects, providing a streamlined setup and management process. With a well-organized structure, comprehensive documentation, and automated workflows, you can focus on building your infrastructure using Bicep with ease.
 
 ## Information
 
