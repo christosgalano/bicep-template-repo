@@ -97,7 +97,7 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2.20.0
         with:
           check_name: psrule-scan-${{ matrix.environment }}
-          nunit_files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
+          files: psrule-results-${{ matrix.environment }}-${{ github.run_number }}.xml
           comment_mode: always
           fail_on: test failures
           action_fail: false
