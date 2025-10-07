@@ -41,12 +41,12 @@ module reference_name 'path_to_module | container_registry_reference' = {
 
 ## Parameters
 
-| Name | Type | Description | Default |
-| --- | --- | --- | --- |
-| environment | string | Name of the workload's environment. | "dev" |
-| location | string | Azure region used for the deployment of all resources. |  |
-| tags | object | Tags to be applied to all resources. | {} |
-| workload | string | Name of the workload that will be deployed. |  |
+| Name | Status | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| environment | Optional | string | Name of the workload's environment. | "dev" |
+| location | Required | string | Azure region used for the deployment of all resources. |  |
+| tags | Optional | object | Tags to be applied to all resources. | {} |
+| workload | Required | string | Name of the workload that will be deployed. |  |
 
 ## Variables
 

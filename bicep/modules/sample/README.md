@@ -33,10 +33,10 @@ module reference_name 'path_to_module | container_registry_reference' = {
 
 ## Parameters
 
-| Name | Type | Description | Default |
-| --- | --- | --- | --- |
-| location | string | The Azure region to deploy to. | "[resourceGroup().location]" |
-| optional_param_1 | string | Optional parameter 1. | "" |
-| optional_param_2 | string | Optional parameter 2. | "" |
-| required_param | string | Required parameter. |  |
-| tags | object | Tags to be applied to resources. | {} |
+| Name | Status | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| location | Optional | string | The Azure region to deploy to. | "[resourceGroup().location]" |
+| optional_param_1 | Optional | string | Optional parameter 1. | "" |
+| optional_param_2 | Optional | string | Optional parameter 2. | "" |
+| required_param | Required | string | Required parameter. |  |
+| tags | Optional | object | Tags to be applied to resources. | {} |
