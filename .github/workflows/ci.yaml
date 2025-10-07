@@ -35,7 +35,7 @@ jobs:
       environments: ${{ steps.select-environments.outputs.environments }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Select environments
         id: select-environments
@@ -71,7 +71,7 @@ jobs:
       BICEP_ENV_DIR: bicep/environments/${{ matrix.environment }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Bicep lint
         run: az bicep lint --file main.bicep
